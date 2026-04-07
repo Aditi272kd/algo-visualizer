@@ -4,38 +4,61 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SortViz — Sorting Algorithm Visualizer</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg: #0f1117;
-  --surface: #1a1d27;
-  --panel: #20232f;
-  --border: #2e3245;
-  --border-hover: #4a5080;
-  --accent: #6c63ff;
-  --accent-dim: rgba(21, 10, 232, 0.15);
-  --accent2: #ff6b9d;
-  --accent3: #00d4aa;
-  --text: #e8eaf6;
-  --text-soft: #9ca3c4;
-  --muted: #5a6080;
-  --bar-default: #3d4460;
-  --bar-compare: #f5c842;
-  --bar-swap: #ff6b6b;
-  --bar-sorted: #00d4aa;
-  --bar-pivot: #bf7af0;
-  --bar-current: #6c63ff;
-  --green: #00d4aa;
-  --yellow: #f5c842;
-  --red: #ff6b6b;
-  --purple: #bf7af0;
-  --font: 'Inter', sans-serif;
-  --mono: 'JetBrains Mono', monospace;
-  --r: 10px;
-  --r-sm: 6px;
+  --bg: #f2ebe0;
+  --surface: #faf6ef;
+  --panel: #f5efe4;
+  --panel2: #ede5d8;
+  --border: #ddd3c0;
+  --border-soft: #e8dfd0;
+  --border-hover: #c9b89a;
+
+  --accent: #b5703a;
+  --accent-dim: rgba(181,112,58,0.1);
+  --accent-light: #f0dcc8;
+  --accent-deep: #8f5220;
+
+  --accent2: #b05070;
+  --accent2-dim: rgba(176,80,112,0.1);
+  --accent2-light: #f0d0da;
+
+  --accent3: #5a7e5c;
+  --accent3-dim: rgba(90,126,92,0.1);
+  --accent3-light: #d0e4d2;
+
+  --accent4: #7060a8;
+  --accent4-light: #ddd8f0;
+
+  --text: #3a2e22;
+  --text-soft: #7a6550;
+  --muted: #a8927a;
+
+  --bar-default: #c8b89a;
+  --bar-compare: #c9903a;
+  --bar-swap: #c04858;
+  --bar-sorted: #5a8c5c;
+  --bar-pivot: #8060b8;
+  --bar-current: #b5703a;
+
+  --green: #5a8c5c;
+  --yellow: #c9903a;
+  --red: #c04858;
+  --purple: #8060b8;
+
+  --shadow-sm: 0 1px 4px rgba(80,55,30,0.07);
+  --shadow: 0 2px 10px rgba(80,55,30,0.1);
+  --shadow-md: 0 4px 18px rgba(80,55,30,0.13);
+
+  --font: 'Lora', serif;
+  --mono: 'DM Mono', monospace;
+  --r: 12px;
+  --r-sm: 8px;
+  --r-pill: 999px;
 }
 
-*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
   font-family: var(--font);
@@ -43,6 +66,9 @@ body {
   color: var(--text);
   min-height: 100vh;
   overflow-x: hidden;
+  background-image:
+    radial-gradient(ellipse at 15% 0%, rgba(181,112,58,0.06) 0%, transparent 55%),
+    radial-gradient(ellipse at 85% 100%, rgba(176,80,112,0.05) 0%, transparent 50%);
 }
 
 /* ===== HEADER ===== */
@@ -50,129 +76,146 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 14px 28px;
+  padding: 13px 28px;
   background: var(--surface);
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1.5px solid var(--border);
   position: sticky; top: 0; z-index: 50;
+  box-shadow: var(--shadow-sm);
 }
 
 .logo {
-  font-family: var(--mono);
-  font-size: 1.2rem;
-  font-weight: 500;
-  letter-spacing: -0.5px;
+  font-family: var(--font);
+  font-size: 1.25rem;
+  font-weight: 700;
+  font-style: italic;
+  letter-spacing: -0.3px;
   color: var(--text);
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 11px;
 }
 
 .logo-icon {
-  width: 28px; height: 28px;
+  width: 30px; height: 30px;
   background: var(--accent);
-  border-radius: 8px;
+  border-radius: 9px;
   display: flex; align-items: center; justify-content: center;
-  font-size: 14px;
+  font-size: 15px;
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(181,112,58,0.35);
+  flex-shrink: 0;
 }
 
 .logo-sub {
-  font-size: 0.65rem;
+  font-size: 0.58rem;
   color: var(--muted);
   letter-spacing: 2px;
   text-transform: uppercase;
   font-family: var(--mono);
   font-weight: 400;
+  font-style: normal;
 }
 
 .tab-nav {
   display: flex;
-  gap: 4px;
-  background: var(--panel);
+  gap: 3px;
+  background: var(--panel2);
   padding: 4px;
-  border-radius: var(--r);
-  border: 1px solid var(--border);
+  border-radius: var(--r-pill);
+  border: 1.5px solid var(--border);
 }
 
 .tab-btn {
-  padding: 7px 18px;
-  border-radius: var(--r-sm);
+  padding: 6px 18px;
+  border-radius: var(--r-pill);
   border: none;
   background: transparent;
   color: var(--text-soft);
   font-family: var(--font);
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   font-weight: 500;
   cursor: pointer;
-  transition: all 0.18s;
+  transition: all 0.2s;
 }
 
 .tab-btn.active {
   background: var(--accent);
   color: #fff;
-  box-shadow: 0 2px 8px rgba(108,99,255,0.4);
+  box-shadow: 0 2px 8px rgba(181,112,58,0.35);
+  font-weight: 600;
 }
 
 .tab-btn:not(.active):hover {
-  background: var(--border);
-  color: var(--text);
+  background: var(--accent-light);
+  color: var(--accent);
 }
 
 /* ===== MAIN LAYOUT ===== */
 .app-body {
   display: flex;
-  height: calc(100vh - 57px);
+  height: calc(100vh - 58px);
 }
 
 /* ===== SIDEBAR ===== */
 .sidebar {
-  width: 230px;
+  width: 228px;
   background: var(--surface);
-  border-right: 1px solid var(--border);
-  padding: 16px 12px;
+  border-right: 1.5px solid var(--border);
+  padding: 16px 10px;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 3px;
   overflow-y: auto;
   flex-shrink: 0;
 }
 
 .sidebar-label {
   font-family: var(--mono);
-  font-size: 0.58rem;
+  font-size: 0.56rem;
   color: var(--muted);
-  letter-spacing: 2px;
+  letter-spacing: 2.5px;
   text-transform: uppercase;
-  padding: 8px 8px 4px;
+  padding: 8px 10px 5px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.sidebar-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border-soft);
 }
 
 .algo-btn {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 9px;
   width: 100%;
   padding: 9px 10px;
   background: transparent;
-  border: 1px solid transparent;
+  border: 1.5px solid transparent;
   border-radius: var(--r-sm);
   color: var(--text-soft);
   font-family: var(--font);
-  font-size: 0.83rem;
+  font-size: 0.82rem;
   cursor: pointer;
   text-align: left;
-  transition: all 0.15s;
+  transition: all 0.18s;
 }
 
 .algo-btn:hover {
   background: var(--accent-dim);
-  color: var(--text);
+  color: var(--accent);
   border-color: var(--border);
+  transform: translateX(2px);
 }
 
 .algo-btn.active {
-  background: var(--accent-dim);
-  color: #a09bff;
+  background: var(--accent-light);
+  color: var(--accent-deep);
   border-color: var(--accent);
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .algo-dot {
@@ -184,12 +227,13 @@ body {
 .complexity-badge {
   margin-left: auto;
   font-family: var(--mono);
-  font-size: 0.55rem;
+  font-size: 0.52rem;
   color: var(--muted);
-  background: var(--panel);
-  padding: 2px 6px;
-  border-radius: 4px;
-  border: 1px solid var(--border);
+  background: var(--panel2);
+  padding: 2px 7px;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--border-soft);
+  white-space: nowrap;
 }
 
 /* ===== MAIN CONTENT ===== */
@@ -204,62 +248,75 @@ body {
 .controls {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 12px 20px;
+  gap: 7px;
+  padding: 11px 20px;
   background: var(--surface);
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1.5px solid var(--border);
   flex-wrap: wrap;
+  box-shadow: var(--shadow-sm);
 }
 
 .ctrl-btn {
   display: flex;
   align-items: center;
-  gap: 6px;
-  padding: 7px 14px;
-  border-radius: 20px;
-  border: 1px solid var(--border);
+  gap: 5px;
+  padding: 7px 15px;
+  border-radius: var(--r-pill);
+  border: 1.5px solid var(--border);
   background: var(--panel);
   color: var(--text-soft);
   font-family: var(--font);
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   font-weight: 500;
   cursor: pointer;
-  transition: all 0.15s;
+  transition: all 0.18s;
   white-space: nowrap;
+  box-shadow: var(--shadow-sm);
 }
 
 .ctrl-btn:hover:not(:disabled) {
   border-color: var(--accent);
   color: var(--accent);
-  background: var(--accent-dim);
+  background: var(--accent-light);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow);
 }
 
 .ctrl-btn.primary {
   background: var(--accent);
   color: #fff;
   border-color: var(--accent);
+  box-shadow: 0 2px 10px rgba(181,112,58,0.35);
 }
 
 .ctrl-btn.primary:hover:not(:disabled) {
-  background: #5c55e8;
+  background: var(--accent-deep);
+  border-color: var(--accent-deep);
   color: #fff;
-  border-color: #5c55e8;
+  box-shadow: 0 4px 14px rgba(181,112,58,0.4);
 }
 
 .ctrl-btn.danger {
-  background: rgba(255,107,107,0.15);
+  background: rgba(192,72,88,0.1);
   color: var(--red);
-  border-color: rgba(255,107,107,0.3);
+  border-color: rgba(192,72,88,0.3);
+}
+
+.ctrl-btn.danger:hover:not(:disabled) {
+  background: rgba(192,72,88,0.18);
+  transform: translateY(-1px);
 }
 
 .ctrl-btn:disabled {
-  opacity: 0.35;
+  opacity: 0.38;
   cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
 }
 
 .ctrl-divider {
   width: 1px;
-  height: 24px;
+  height: 22px;
   background: var(--border);
   flex-shrink: 0;
 }
@@ -267,20 +324,21 @@ body {
 .ctrl-group {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 7px;
 }
 
 .ctrl-label {
   font-family: var(--mono);
-  font-size: 0.62rem;
+  font-size: 0.58rem;
   color: var(--muted);
-  letter-spacing: 0.5px;
+  letter-spacing: 1px;
   white-space: nowrap;
+  text-transform: uppercase;
 }
 
 .speed-slider {
   -webkit-appearance: none;
-  width: 90px; height: 4px;
+  width: 88px; height: 4px;
   background: var(--border);
   border-radius: 10px;
   outline: none;
@@ -292,34 +350,32 @@ body {
   background: var(--accent);
   border-radius: 50%;
   cursor: pointer;
+  box-shadow: 0 1px 4px rgba(181,112,58,0.35);
 }
 
 .size-input, .custom-input {
   padding: 6px 10px;
   background: var(--panel);
-  border: 1px solid var(--border);
+  border: 1.5px solid var(--border);
   border-radius: var(--r-sm);
   color: var(--text);
   font-family: var(--mono);
-  font-size: 0.76rem;
+  font-size: 0.74rem;
   outline: none;
   transition: border-color 0.15s;
 }
 
 .size-input { width: 56px; text-align: center; }
 .custom-input { width: 200px; }
-
-.size-input:focus, .custom-input:focus {
-  border-color: var(--accent);
-}
+.size-input:focus, .custom-input:focus { border-color: var(--accent); }
 
 /* ===== CANVAS AREA ===== */
 .canvas-area {
   flex: 1;
   display: flex;
   flex-direction: column;
-  padding: 16px 20px;
-  gap: 12px;
+  padding: 14px 18px;
+  gap: 11px;
   overflow: hidden;
 }
 
@@ -327,11 +383,12 @@ body {
 .viz-container {
   flex: 1;
   background: var(--surface);
-  border: 1px solid var(--border);
+  border: 1.5px solid var(--border);
   border-radius: var(--r);
   overflow: hidden;
   position: relative;
   min-height: 0;
+  box-shadow: var(--shadow-sm);
 }
 
 .bars-wrapper {
@@ -344,7 +401,7 @@ body {
 
 .bar {
   flex: 1;
-  border-radius: 4px 4px 0 0;
+  border-radius: 5px 5px 0 0;
   transition: height 0.08s ease, background 0.08s ease;
   background: var(--bar-default);
   position: relative;
@@ -360,40 +417,41 @@ body {
   left: 50%;
   transform: translateX(-50%);
   font-family: var(--mono);
-  font-size: 0.5rem;
+  font-size: 0.48rem;
   color: var(--muted);
   white-space: nowrap;
   pointer-events: none;
 }
 
 .bar.compare { background: var(--bar-compare) !important; }
-.bar.swap { background: var(--bar-swap) !important; }
-.bar.sorted { background: var(--bar-sorted) !important; }
-.bar.pivot { background: var(--bar-pivot) !important; }
+.bar.swap    { background: var(--bar-swap) !important; }
+.bar.sorted  { background: var(--bar-sorted) !important; }
+.bar.pivot   { background: var(--bar-pivot) !important; }
 .bar.current { background: var(--bar-current) !important; }
-.bar.key { background: var(--accent2) !important; }
+.bar.key     { background: var(--accent2) !important; }
 
 /* ===== BOTTOM INFO ROW ===== */
 .info-row {
   display: flex;
-  gap: 10px;
+  gap: 9px;
   align-items: stretch;
 }
 
 .stat-card {
   background: var(--surface);
-  border: 1px solid var(--border);
+  border: 1.5px solid var(--border);
   border-radius: var(--r);
-  padding: 10px 16px;
+  padding: 9px 15px;
   display: flex;
   flex-direction: column;
   gap: 3px;
-  min-width: 100px;
+  min-width: 90px;
+  box-shadow: var(--shadow-sm);
 }
 
 .stat-label {
   font-family: var(--mono);
-  font-size: 0.55rem;
+  font-size: 0.52rem;
   color: var(--muted);
   text-transform: uppercase;
   letter-spacing: 1.5px;
@@ -401,7 +459,7 @@ body {
 
 .stat-value {
   font-family: var(--mono);
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   font-weight: 500;
   color: var(--accent);
 }
@@ -409,16 +467,17 @@ body {
 .step-log {
   flex: 1;
   background: var(--surface);
-  border: 1px solid var(--border);
+  border: 1.5px solid var(--border);
   border-radius: var(--r);
-  padding: 10px 16px;
+  padding: 9px 15px;
   font-family: var(--mono);
-  font-size: 0.7rem;
+  font-size: 0.67rem;
   color: var(--text-soft);
   display: flex;
   align-items: center;
   gap: 8px;
   overflow: hidden;
+  box-shadow: var(--shadow-sm);
 }
 
 .step-prefix {
@@ -434,20 +493,13 @@ body {
   white-space: nowrap;
 }
 
-/* ===== LEGEND ===== */
-.legend {
-  display: flex;
-  gap: 16px;
-  flex-wrap: wrap;
-  align-items: center;
-}
-
+/* ===== LEGEND (sidebar) ===== */
 .legend-item {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 7px;
   font-family: var(--mono);
-  font-size: 0.62rem;
+  font-size: 0.6rem;
   color: var(--muted);
 }
 
@@ -460,64 +512,63 @@ body {
 /* ===== PSEUDO CODE PANEL ===== */
 .pseudo-panel {
   background: var(--surface);
-  border: 1px solid var(--border);
+  border: 1.5px solid var(--border);
   border-radius: var(--r);
   padding: 14px;
   font-family: var(--mono);
-  font-size: 0.66rem;
-  line-height: 1.9;
+  font-size: 0.63rem;
+  line-height: 1.95;
   color: var(--muted);
-  width: 260px;
+  width: 250px;
   flex-shrink: 0;
   overflow-y: auto;
+  box-shadow: var(--shadow-sm);
 }
 
-.pseudo-panel .kw { color: #ff79c6; }
+.pseudo-panel .kw { color: var(--accent2); }
 .pseudo-panel .fn { color: var(--accent3); }
-.pseudo-panel .cm { color: #545d80; }
+.pseudo-panel .cm { color: var(--border-hover); font-style: italic; }
 
 /* ===== COMPARE MODE ===== */
 .compare-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
+  gap: 11px;
   flex: 1;
   min-height: 0;
 }
 
 .compare-cell {
   background: var(--surface);
-  border: 1px solid var(--border);
+  border: 1.5px solid var(--border);
   border-radius: var(--r);
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  box-shadow: var(--shadow-sm);
 }
 
 .compare-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 8px 12px;
-  border-bottom: 1px solid var(--border);
+  padding: 8px 13px;
+  border-bottom: 1.5px solid var(--border);
   background: var(--panel);
 }
 
 .compare-title {
-  font-family: var(--mono);
-  font-size: 0.75rem;
-  font-weight: 500;
-  color: var(--text);
+  font-family: var(--font);
+  font-size: 0.78rem;
+  font-weight: 600;
+  font-style: italic;
 }
 
-.compare-stats {
-  display: flex;
-  gap: 10px;
-}
+.compare-stats { display: flex; gap: 10px; }
 
 .cstat {
   font-family: var(--mono);
-  font-size: 0.62rem;
+  font-size: 0.6rem;
   color: var(--muted);
 }
 
@@ -530,17 +581,17 @@ body {
   flex: 1;
   display: flex;
   align-items: flex-end;
-  padding: 10px 10px 28px;
+  padding: 10px 10px 26px;
   gap: 2px;
   min-height: 0;
 }
 
 .compare-status {
-  padding: 5px 12px;
+  padding: 5px 13px;
   font-family: var(--mono);
-  font-size: 0.6rem;
+  font-size: 0.58rem;
   color: var(--text-soft);
-  border-top: 1px solid var(--border);
+  border-top: 1.5px solid var(--border);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -560,71 +611,76 @@ body {
 
 .welcome-icon {
   width: 64px; height: 64px;
-  background: var(--accent-dim);
-  border: 1px solid var(--border);
-  border-radius: 16px;
+  background: var(--accent-light);
+  border: 1.5px solid var(--border);
+  border-radius: 18px;
   display: flex; align-items: center; justify-content: center;
   font-size: 28px;
   margin-bottom: 4px;
+  box-shadow: var(--shadow);
 }
 
 .welcome h2 {
   font-size: 1.15rem;
-  font-weight: 600;
+  font-weight: 700;
+  font-style: italic;
   color: var(--text);
 }
 
 .welcome p {
   font-family: var(--mono);
-  font-size: 0.68rem;
+  font-size: 0.65rem;
   color: var(--muted);
-  max-width: 280px;
-  line-height: 1.8;
+  max-width: 270px;
+  line-height: 1.85;
 }
 
-/* ===== CUSTOM INPUT MODAL ===== */
+/* ===== MODAL ===== */
 .modal-overlay {
   position: fixed; inset: 0;
-  background: rgba(0,0,0,0.6);
+  background: rgba(80,55,30,0.35);
   display: flex; align-items: center; justify-content: center;
   z-index: 200;
   display: none;
+  backdrop-filter: blur(2px);
 }
 
 .modal-overlay.open { display: flex; }
 
 .modal {
   background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 24px;
+  border: 1.5px solid var(--border);
+  border-radius: 18px;
+  padding: 26px;
   width: 420px;
   max-width: 90vw;
+  box-shadow: var(--shadow-md);
 }
 
 .modal h3 {
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: 700;
+  font-style: italic;
   margin-bottom: 6px;
 }
 
 .modal p {
   font-family: var(--mono);
-  font-size: 0.68rem;
+  font-size: 0.65rem;
   color: var(--muted);
   margin-bottom: 16px;
-  line-height: 1.7;
+  line-height: 1.8;
 }
 
 .modal-input {
   width: 100%;
   padding: 10px 14px;
   background: var(--panel);
-  border: 1px solid var(--border);
+  border: 1.5px solid var(--border);
   border-radius: var(--r-sm);
   color: var(--text);
   font-family: var(--mono);
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   outline: none;
   margin-bottom: 16px;
   transition: border-color 0.15s;
@@ -639,54 +695,56 @@ body {
 }
 
 /* ===== SCROLLBARS ===== */
-::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
 
 /* ===== ALGO INFO PANEL ===== */
 .algo-info {
   background: var(--surface);
-  border: 1px solid var(--border);
+  border: 1.5px solid var(--border);
   border-radius: var(--r);
-  padding: 12px 14px;
+  padding: 11px 14px;
+  box-shadow: var(--shadow-sm);
 }
 
 .algo-info-title {
   font-size: 0.95rem;
-  font-weight: 600;
+  font-weight: 700;
+  font-style: italic;
   color: var(--text);
   margin-bottom: 3px;
 }
 
 .algo-info-desc {
   font-family: var(--mono);
-  font-size: 0.66rem;
+  font-size: 0.63rem;
   color: var(--muted);
-  line-height: 1.7;
+  line-height: 1.75;
 }
 
 .complexity-chips {
   display: flex;
-  gap: 6px;
+  gap: 5px;
   margin-top: 8px;
   flex-wrap: wrap;
 }
 
 .chip {
   font-family: var(--mono);
-  font-size: 0.6rem;
-  padding: 3px 8px;
-  border-radius: 20px;
-  border: 1px solid var(--border);
+  font-size: 0.57rem;
+  padding: 3px 9px;
+  border-radius: var(--r-pill);
+  border: 1.5px solid var(--border);
   color: var(--text-soft);
-  background: var(--panel);
+  background: var(--panel2);
 }
 
-.chip.best { border-color: rgba(0,212,170,0.4); color: var(--green); background: rgba(0,212,170,0.08); }
-.chip.avg { border-color: rgba(245,200,66,0.4); color: var(--yellow); background: rgba(245,200,66,0.08); }
-.chip.worst { border-color: rgba(255,107,107,0.4); color: var(--red); background: rgba(255,107,107,0.08); }
-.chip.space { border-color: rgba(191,122,240,0.4); color: var(--purple); background: rgba(191,122,240,0.08); }
-.chip.stable { border-color: rgba(108,99,255,0.4); color: #a09bff; background: rgba(108,99,255,0.08); }
+.chip.best  { border-color: rgba(90,140,92,0.5); color: var(--green); background: var(--accent3-light); }
+.chip.avg   { border-color: rgba(201,144,58,0.5); color: var(--yellow); background: rgba(201,144,58,0.1); }
+.chip.worst { border-color: rgba(192,72,88,0.5); color: var(--red); background: rgba(192,72,88,0.08); }
+.chip.space { border-color: rgba(128,96,184,0.5); color: var(--purple); background: var(--accent4-light); }
+.chip.stable { border-color: rgba(181,112,58,0.5); color: var(--accent); background: var(--accent-light); }
 
 /* ===== PROGRESS BAR ===== */
 .progress-bar {
@@ -698,7 +756,7 @@ body {
 
 .progress-fill {
   height: 100%;
-  background: var(--accent);
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
   border-radius: 10px;
   transition: width 0.1s;
   width: 0%;
@@ -707,16 +765,17 @@ body {
 /* ===== COMPARE TABLE ===== */
 .compare-table-wrapper {
   background: var(--surface);
-  border: 1px solid var(--border);
+  border: 1.5px solid var(--border);
   border-radius: var(--r);
   overflow: hidden;
+  box-shadow: var(--shadow-sm);
 }
 
 .compare-table {
   width: 100%;
   border-collapse: collapse;
   font-family: var(--mono);
-  font-size: 0.72rem;
+  font-size: 0.7rem;
 }
 
 .compare-table th {
@@ -725,26 +784,25 @@ body {
   text-align: left;
   color: var(--muted);
   font-weight: 500;
-  font-size: 0.62rem;
+  font-size: 0.58rem;
   text-transform: uppercase;
   letter-spacing: 1.5px;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1.5px solid var(--border);
 }
 
 .compare-table td {
   padding: 9px 14px;
   color: var(--text-soft);
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--border-soft);
 }
 
 .compare-table tr:last-child td { border-bottom: none; }
 .compare-table tr:hover td { background: var(--panel); }
 
-.compare-table td.best-t { color: var(--green); }
-.compare-table td.good-t { color: #a09bff; }
-.compare-table td.bad-t { color: var(--red); }
-.compare-table td.ok-t { color: var(--yellow); }
-
+.compare-table td.best-t  { color: var(--green); }
+.compare-table td.good-t  { color: var(--accent); }
+.compare-table td.bad-t   { color: var(--red); }
+.compare-table td.ok-t    { color: var(--yellow); }
 </style>
 </head>
 <body>
@@ -752,10 +810,10 @@ body {
 <!-- HEADER -->
 <header class="header">
   <div class="logo">
-    <div class="logo-icon">⟳</div>
+    <div class="logo-icon">↕</div>
     <div>
       SortViz
-      <div class="logo-sub">Sorting Algorithm Visualizer</div>
+      <div class="logo-sub">Sorting Visualizer</div>
     </div>
   </div>
   <div class="tab-nav">
@@ -773,38 +831,38 @@ body {
     <div class="sidebar-label">Algorithms</div>
 
     <button class="algo-btn" onclick="loadAlgo('bubble')">
-      <div class="algo-dot" style="background:#f5c842"></div>
+      <div class="algo-dot" style="background:#c9903a"></div>
       Bubble Sort
       <span class="complexity-badge">O(n²)</span>
     </button>
 
     <button class="algo-btn" onclick="loadAlgo('selection')">
-      <div class="algo-dot" style="background:#6c63ff"></div>
+      <div class="algo-dot" style="background:#8060b8"></div>
       Selection Sort
       <span class="complexity-badge">O(n²)</span>
     </button>
 
     <button class="algo-btn" onclick="loadAlgo('insertion')">
-      <div class="algo-dot" style="background:#ff6b9d"></div>
+      <div class="algo-dot" style="background:#b05070"></div>
       Insertion Sort
       <span class="complexity-badge">O(n²)</span>
     </button>
 
     <button class="algo-btn" onclick="loadAlgo('merge')">
-      <div class="algo-dot" style="background:#00d4aa"></div>
+      <div class="algo-dot" style="background:#5a8c5c"></div>
       Merge Sort
       <span class="complexity-badge">O(n log n)</span>
     </button>
 
     <button class="algo-btn" onclick="loadAlgo('quick')">
-      <div class="algo-dot" style="background:#bf7af0"></div>
+      <div class="algo-dot" style="background:#b5703a"></div>
       Quick Sort
       <span class="complexity-badge">O(n log n)</span>
     </button>
 
-    <div style="margin-top:auto;padding-top:16px;border-top:1px solid var(--border);">
+    <div style="margin-top:auto;padding-top:16px;border-top:1.5px solid var(--border-soft);">
       <div class="sidebar-label">Legend</div>
-      <div style="display:flex;flex-direction:column;gap:6px;padding:4px 8px;">
+      <div style="display:flex;flex-direction:column;gap:7px;padding:4px 8px;">
         <div class="legend-item"><div class="legend-dot" style="background:var(--bar-default)"></div>Unsorted</div>
         <div class="legend-item"><div class="legend-dot" style="background:var(--bar-compare)"></div>Comparing</div>
         <div class="legend-item"><div class="legend-dot" style="background:var(--bar-swap)"></div>Swapping</div>
@@ -826,47 +884,42 @@ body {
       <button class="ctrl-btn" id="btn-reset" onclick="resetViz()" disabled>↺ Reset</button>
 
       <div class="ctrl-divider"></div>
-
       <button class="ctrl-btn" onclick="openCustomInput()">✎ Custom Input</button>
-
       <div class="ctrl-divider"></div>
 
       <div class="ctrl-group">
-        <span class="ctrl-label">SIZE</span>
+        <span class="ctrl-label">Size</span>
         <input type="number" class="size-input" id="arr-size" min="5" max="80" value="30">
       </div>
 
       <div class="ctrl-divider"></div>
 
       <div class="ctrl-group">
-        <span class="ctrl-label">SPEED</span>
+        <span class="ctrl-label">Speed</span>
         <input type="range" class="speed-slider" id="speed" min="1" max="20" value="8">
         <span class="ctrl-label" id="speed-val">8×</span>
       </div>
     </div>
 
-    <!-- TABS -->
+    <!-- CANVAS AREA -->
     <div class="canvas-area" id="canvas-area">
+
       <!-- Visualize Tab -->
-      <div id="tab-visualize" style="display:flex;flex-direction:column;gap:12px;flex:1;min-height:0;">
+      <div id="tab-visualize" style="display:flex;flex-direction:column;gap:11px;flex:1;min-height:0;">
         <div class="welcome" id="welcome">
           <div class="welcome-icon">↕</div>
           <h2>Select an Algorithm</h2>
           <p>Pick any sorting algorithm from the sidebar to start a step-by-step visualization with comparisons and swap counts.</p>
         </div>
-        <div id="viz-main" style="display:none;flex-direction:column;gap:12px;flex:1;min-height:0;">
-          <!-- algo info -->
+        <div id="viz-main" style="display:none;flex-direction:column;gap:11px;flex:1;min-height:0;">
           <div id="algo-info-panel" class="algo-info"></div>
-          <!-- progress -->
           <div class="progress-bar"><div class="progress-fill" id="progress"></div></div>
-          <!-- main viz + pseudo -->
-          <div style="display:flex;gap:12px;flex:1;min-height:0;">
+          <div style="display:flex;gap:11px;flex:1;min-height:0;">
             <div class="viz-container" style="flex:1;">
               <div class="bars-wrapper" id="bars"></div>
             </div>
             <div class="pseudo-panel" id="pseudo"></div>
           </div>
-          <!-- stats row -->
           <div class="info-row">
             <div class="stat-card">
               <div class="stat-label">Comparisons</div>
@@ -893,13 +946,13 @@ body {
       </div>
 
       <!-- Compare Tab -->
-      <div id="tab-compare" style="display:none;flex-direction:column;gap:12px;flex:1;min-height:0;">
+      <div id="tab-compare" style="display:none;flex-direction:column;gap:11px;flex:1;min-height:0;">
         <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
           <div>
-            <div style="font-size:1rem;font-weight:600;">Side-by-Side Comparison</div>
-            <div style="font-family:var(--mono);font-size:0.66rem;color:var(--muted);margin-top:3px;">All algorithms run on the same array simultaneously</div>
+            <div style="font-size:1rem;font-weight:700;font-style:italic;">Side-by-Side Comparison</div>
+            <div style="font-family:var(--mono);font-size:0.63rem;color:var(--muted);margin-top:3px;">All algorithms run on the same array simultaneously</div>
           </div>
-          <div style="display:flex;gap:8px;align-items:center;">
+          <div style="display:flex;gap:7px;align-items:center;">
             <button class="ctrl-btn" onclick="generateCompareData()">⟳ New Array</button>
             <button class="ctrl-btn primary" id="cmp-play-btn" onclick="playCompare()">▶ Run All</button>
             <button class="ctrl-btn danger" id="cmp-stop-btn" onclick="stopCompare()" style="display:none">■ Stop</button>
@@ -909,8 +962,8 @@ body {
       </div>
 
       <!-- Complexity Tab -->
-      <div id="tab-complexity" style="display:none;flex-direction:column;gap:16px;padding:4px 0;">
-        <div style="font-size:1rem;font-weight:600;">Time & Space Complexity Reference</div>
+      <div id="tab-complexity" style="display:none;flex-direction:column;gap:16px;padding:4px 0;overflow-y:auto;">
+        <div style="font-size:1rem;font-weight:700;font-style:italic;">Time & Space Complexity Reference</div>
         <div class="compare-table-wrapper">
           <table class="compare-table">
             <thead>
@@ -926,7 +979,7 @@ body {
             </thead>
             <tbody>
               <tr>
-                <td style="color:var(--bar-compare);font-weight:500;">Bubble Sort</td>
+                <td style="color:var(--yellow);font-weight:600;font-style:italic;">Bubble Sort</td>
                 <td class="best-t">Ω(n)</td>
                 <td class="bad-t">Θ(n²)</td>
                 <td class="bad-t">O(n²)</td>
@@ -935,7 +988,7 @@ body {
                 <td>Exchange</td>
               </tr>
               <tr>
-                <td style="color:#a09bff;font-weight:500;">Selection Sort</td>
+                <td style="color:var(--purple);font-weight:600;font-style:italic;">Selection Sort</td>
                 <td class="bad-t">Ω(n²)</td>
                 <td class="bad-t">Θ(n²)</td>
                 <td class="bad-t">O(n²)</td>
@@ -944,7 +997,7 @@ body {
                 <td>Selection</td>
               </tr>
               <tr>
-                <td style="color:var(--accent2);font-weight:500;">Insertion Sort</td>
+                <td style="color:var(--accent2);font-weight:600;font-style:italic;">Insertion Sort</td>
                 <td class="best-t">Ω(n)</td>
                 <td class="bad-t">Θ(n²)</td>
                 <td class="bad-t">O(n²)</td>
@@ -953,7 +1006,7 @@ body {
                 <td>Insertion</td>
               </tr>
               <tr>
-                <td style="color:var(--green);font-weight:500;">Merge Sort</td>
+                <td style="color:var(--green);font-weight:600;font-style:italic;">Merge Sort</td>
                 <td class="good-t">Ω(n log n)</td>
                 <td class="good-t">Θ(n log n)</td>
                 <td class="good-t">O(n log n)</td>
@@ -962,7 +1015,7 @@ body {
                 <td>Divide & Conquer</td>
               </tr>
               <tr>
-                <td style="color:var(--purple);font-weight:500;">Quick Sort</td>
+                <td style="color:var(--accent);font-weight:600;font-style:italic;">Quick Sort</td>
                 <td class="good-t">Ω(n log n)</td>
                 <td class="good-t">Θ(n log n)</td>
                 <td class="bad-t">O(n²)</td>
@@ -974,9 +1027,9 @@ body {
           </table>
         </div>
 
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:4px;">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:11px;margin-top:2px;">
           <div class="algo-info">
-            <div class="algo-info-title" style="color:var(--bar-compare);">Bubble Sort</div>
+            <div class="algo-info-title" style="color:var(--yellow);">Bubble Sort</div>
             <div class="algo-info-desc">Repeatedly swaps adjacent elements that are out of order. The largest elements "bubble up" to the end each pass. Simple to understand but inefficient for large arrays.</div>
             <div class="complexity-chips">
               <span class="chip best">Best: O(n)</span>
@@ -985,7 +1038,7 @@ body {
             </div>
           </div>
           <div class="algo-info">
-            <div class="algo-info-title" style="color:#a09bff;">Selection Sort</div>
+            <div class="algo-info-title" style="color:var(--purple);">Selection Sort</div>
             <div class="algo-info-desc">Finds the minimum element from the unsorted portion and swaps it to the correct position. Makes exactly n-1 swaps, making it useful when swaps are costly.</div>
             <div class="complexity-chips">
               <span class="chip worst">Always: O(n²)</span>
@@ -1005,13 +1058,13 @@ body {
             <div class="algo-info-title" style="color:var(--green);">Merge Sort</div>
             <div class="algo-info-desc">Divide-and-conquer: recursively splits the array in half, sorts each half, and merges them. Guaranteed O(n log n) in all cases. Requires O(n) extra space.</div>
             <div class="complexity-chips">
-              <span class="chip best">All cases: O(n log n)</span>
+              <span class="chip best">All: O(n log n)</span>
               <span class="chip space">Space: O(n)</span>
               <span class="chip stable">Stable</span>
             </div>
           </div>
           <div class="algo-info">
-            <div class="algo-info-title" style="color:var(--purple);">Quick Sort</div>
+            <div class="algo-info-title" style="color:var(--accent);">Quick Sort</div>
             <div class="algo-info-desc">Picks a pivot and partitions the array around it. Average O(n log n) with excellent cache performance. Worst case O(n²) occurs with bad pivot selection.</div>
             <div class="complexity-chips">
               <span class="chip best">Avg: O(n log n)</span>
@@ -1023,7 +1076,6 @@ body {
       </div>
 
     </div>
-
   </div>
 </div>
 
@@ -1051,11 +1103,11 @@ let arr = [];
 let customArr = null;
 let currentTab = 'visualize';
 
-// Compare mode
-let cmpSteps = {};
-let cmpIdx = 0;
-let cmpPlaying = false;
-let cmpTimer = null;
+let compareData = {};
+let compareStepsAll = {};
+let compareIdxAll = {};
+let compareActive = false;
+let compareTimers = {};
 
 const speed = document.getElementById('speed');
 const speedVal = document.getElementById('speed-val');
@@ -1067,7 +1119,7 @@ function getDelay() { return Math.max(20, Math.floor(1200 / parseInt(speed.value
 const ALGOS = {
   bubble: {
     name: 'Bubble Sort',
-    color: '#f5c842',
+    color: '#c9903a',
     desc: 'Repeatedly steps through the list, compares adjacent elements and swaps them if they are in the wrong order.',
     best:'Ω(n)', avg:'Θ(n²)', worst:'O(n²)', space:'O(1)', stable:'Yes',
     pseudo:`BubbleSort(A, n):
@@ -1078,11 +1130,11 @@ const ALGOS = {
         swap(A[j], A[j+1])
         swapped = <span class="kw">true</span>
     <span class="kw">if</span> !swapped: <span class="kw">break</span>
-    <span class="cm">// Optimization: early exit`
+    <span class="cm">// early exit`
   },
   selection: {
     name: 'Selection Sort',
-    color: '#a09bff',
+    color: '#8060b8',
     desc: 'Divides the array into sorted and unsorted regions. Repeatedly finds the minimum element from the unsorted region and moves it to the beginning.',
     best:'Ω(n²)', avg:'Θ(n²)', worst:'O(n²)', space:'O(1)', stable:'No',
     pseudo:`SelectionSort(A, n):
@@ -1097,7 +1149,7 @@ const ALGOS = {
   },
   insertion: {
     name: 'Insertion Sort',
-    color: '#ff6b9d',
+    color: '#b05070',
     desc: 'Builds a sorted subarray one element at a time. Takes the next element and inserts it at the correct position in the sorted portion.',
     best:'Ω(n)', avg:'Θ(n²)', worst:'O(n²)', space:'O(1)', stable:'Yes',
     pseudo:`InsertionSort(A, n):
@@ -1113,7 +1165,7 @@ const ALGOS = {
   },
   merge: {
     name: 'Merge Sort',
-    color: '#00d4aa',
+    color: '#5a8c5c',
     desc: 'Divide-and-conquer: recursively splits the array in half, sorts each half, then merges sorted halves back together.',
     best:'Ω(n log n)', avg:'Θ(n log n)', worst:'O(n log n)', space:'O(n)', stable:'Yes',
     pseudo:`MergeSort(A, l, r):
@@ -1133,7 +1185,7 @@ Merge(A, l, m, r):
   },
   quick: {
     name: 'Quick Sort',
-    color: '#bf7af0',
+    color: '#b5703a',
     desc: 'Picks a pivot element, partitions the array so elements ≤ pivot come before and elements > pivot come after, then recursively sorts sub-arrays.',
     best:'Ω(n log n)', avg:'Θ(n log n)', worst:'O(n²)', space:'O(log n)', stable:'No',
     pseudo:`QuickSort(A, lo, hi):
@@ -1374,14 +1426,12 @@ function generateSortingSteps(name, a) {
   } else if (name === 'merge') {
     const ctr = {comps, swaps};
     mergeSort(a, 0, a.length-1, out, ctr);
-    comps = ctr.comps; swaps = ctr.swaps;
-    out.push({ arr: [...a], states: Array(a.length).fill('sorted'), comps, swaps, msg: '✓ Array is fully sorted!' });
+    out.push({ arr: [...a], states: Array(a.length).fill('sorted'), comps: ctr.comps, swaps: ctr.swaps, msg: '✓ Array is fully sorted!' });
 
   } else if (name === 'quick') {
     const ctr = {comps, swaps};
     quickSort(a, 0, a.length-1, out, ctr);
-    comps = ctr.comps; swaps = ctr.swaps;
-    out.push({ arr: [...a], states: Array(a.length).fill('sorted'), comps, swaps, msg: '✓ Array is fully sorted!' });
+    out.push({ arr: [...a], states: Array(a.length).fill('sorted'), comps: ctr.comps, swaps: ctr.swaps, msg: '✓ Array is fully sorted!' });
   }
 
   return out;
@@ -1390,7 +1440,7 @@ function generateSortingSteps(name, a) {
 function makeState(n, hl, sortedFrom, total) {
   return Array.from({length:n}, (_,i) => {
     if (hl[i]) return hl[i];
-    if (i >= total - (n - sortedFrom) && sortedFrom >= 0 && i >= sortedFrom) return 'sorted';
+    if (i >= sortedFrom) return 'sorted';
     return '';
   });
 }
@@ -1485,13 +1535,6 @@ document.getElementById('arr-size').addEventListener('change', () => {
 });
 
 // ====== COMPARE MODE ======
-let compareData = {};
-let compareStepsAll = {};
-let compareIdxAll = {};
-let compareRunning = false;
-let compareTimers = {};
-let compareActive = false;
-
 function initCompareTab() {
   const grid = document.getElementById('compare-grid');
   const algoList = ['bubble','selection','insertion','merge','quick'];
@@ -1544,7 +1587,7 @@ function renderCompareBars(name, a, states) {
   container.innerHTML = a.map((v,i) => {
     const cls = states[i] || '';
     const h = Math.max(5, Math.round((v/max)*85));
-    return `<div class="bar ${cls}" style="height:${h}%;flex:1;min-width:2px;max-width:40px;border-radius:3px 3px 0 0;transition:height 0.06s,background 0.06s;"></div>`;
+    return `<div class="bar ${cls}" style="height:${h}%;flex:1;min-width:2px;max-width:40px;border-radius:4px 4px 0 0;transition:height 0.06s,background 0.06s;"></div>`;
   }).join('');
 }
 
@@ -1555,18 +1598,16 @@ function playCompare() {
   document.getElementById('cmp-stop-btn').style.display = 'inline-flex';
 
   const algoList = ['bubble','selection','insertion','merge','quick'];
-  algoList.forEach(name => {
-    runCompareAlgo(name);
-  });
+  algoList.forEach(name => { runCompareAlgo(name); });
 }
 
 function runCompareAlgo(name) {
   if (!compareActive) return;
-  const steps = compareStepsAll[name];
+  const stepsArr = compareStepsAll[name];
   const idx = compareIdxAll[name];
-  if (idx >= steps.length) return;
+  if (idx >= stepsArr.length) return;
 
-  const s = steps[idx];
+  const s = stepsArr[idx];
   renderCompareBars(name, s.arr, s.states || []);
   const cc = document.getElementById(`cmp-c-${name}`);
   const cs = document.getElementById(`cmp-s-${name}`);
@@ -1576,7 +1617,7 @@ function runCompareAlgo(name) {
   if (st) st.textContent = s.msg;
   compareIdxAll[name] = idx + 1;
 
-  if (idx + 1 < steps.length) {
+  if (idx + 1 < stepsArr.length) {
     compareTimers[name] = setTimeout(() => runCompareAlgo(name), getDelay());
   } else {
     if (st) st.textContent = '✓ ' + s.msg;
@@ -1608,4 +1649,4 @@ document.getElementById('btn-step').disabled = true;
 document.getElementById('btn-reset').disabled = true;
 </script>
 </body>
-</html>
+  </html>
