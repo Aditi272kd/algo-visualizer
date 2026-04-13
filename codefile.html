@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SortViz — Sorting Algorithm Visualizer</title>
+<title>Sorting Algorithm Visualizer</title>
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -14,52 +14,42 @@
   --border: #ddd3c0;
   --border-soft: #e8dfd0;
   --border-hover: #c9b89a;
-
   --accent: #b5703a;
   --accent-dim: rgba(181,112,58,0.1);
   --accent-light: #f0dcc8;
   --accent-deep: #8f5220;
-
   --accent2: #b05070;
   --accent2-dim: rgba(176,80,112,0.1);
   --accent2-light: #f0d0da;
-
   --accent3: #5a7e5c;
   --accent3-dim: rgba(90,126,92,0.1);
   --accent3-light: #d0e4d2;
-
   --accent4: #7060a8;
   --accent4-light: #ddd8f0;
-
   --text: #3a2e22;
   --text-soft: #7a6550;
   --muted: #a8927a;
-
   --bar-default: #c8b89a;
   --bar-compare: #c9903a;
   --bar-swap: #c04858;
   --bar-sorted: #5a8c5c;
   --bar-pivot: #8060b8;
   --bar-current: #b5703a;
-
   --green: #5a8c5c;
   --yellow: #c9903a;
   --red: #c04858;
   --purple: #8060b8;
-
+  --teal: #3a8a8a;
   --shadow-sm: 0 1px 4px rgba(80,55,30,0.07);
   --shadow: 0 2px 10px rgba(80,55,30,0.1);
   --shadow-md: 0 4px 18px rgba(80,55,30,0.13);
-
   --font: 'Lora', serif;
   --mono: 'DM Mono', monospace;
   --r: 12px;
   --r-sm: 8px;
   --r-pill: 999px;
 }
-
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
 body {
   font-family: var(--font);
   background: var(--bg);
@@ -70,8 +60,6 @@ body {
     radial-gradient(ellipse at 15% 0%, rgba(181,112,58,0.06) 0%, transparent 55%),
     radial-gradient(ellipse at 85% 100%, rgba(176,80,112,0.05) 0%, transparent 50%);
 }
-
-/* ===== HEADER ===== */
 .header {
   display: flex;
   align-items: center;
@@ -82,7 +70,6 @@ body {
   position: sticky; top: 0; z-index: 50;
   box-shadow: var(--shadow-sm);
 }
-
 .logo {
   font-family: var(--font);
   font-size: 1.25rem;
@@ -94,7 +81,6 @@ body {
   align-items: center;
   gap: 11px;
 }
-
 .logo-icon {
   width: 30px; height: 30px;
   background: var(--accent);
@@ -105,7 +91,6 @@ body {
   box-shadow: 0 2px 8px rgba(181,112,58,0.35);
   flex-shrink: 0;
 }
-
 .logo-sub {
   font-size: 0.58rem;
   color: var(--muted);
@@ -115,7 +100,6 @@ body {
   font-weight: 400;
   font-style: normal;
 }
-
 .tab-nav {
   display: flex;
   gap: 3px;
@@ -124,39 +108,32 @@ body {
   border-radius: var(--r-pill);
   border: 1.5px solid var(--border);
 }
-
 .tab-btn {
-  padding: 6px 18px;
+  padding: 6px 14px;
   border-radius: var(--r-pill);
   border: none;
   background: transparent;
   color: var(--text-soft);
   font-family: var(--font);
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s;
 }
-
 .tab-btn.active {
   background: var(--accent);
   color: #fff;
   box-shadow: 0 2px 8px rgba(181,112,58,0.35);
   font-weight: 600;
 }
-
 .tab-btn:not(.active):hover {
   background: var(--accent-light);
   color: var(--accent);
 }
-
-/* ===== MAIN LAYOUT ===== */
 .app-body {
   display: flex;
   height: calc(100vh - 58px);
 }
-
-/* ===== SIDEBAR ===== */
 .sidebar {
   width: 228px;
   background: var(--surface);
@@ -168,7 +145,6 @@ body {
   overflow-y: auto;
   flex-shrink: 0;
 }
-
 .sidebar-label {
   font-family: var(--mono);
   font-size: 0.56rem;
@@ -186,7 +162,6 @@ body {
   height: 1px;
   background: var(--border-soft);
 }
-
 .algo-btn {
   display: flex;
   align-items: center;
@@ -203,27 +178,23 @@ body {
   text-align: left;
   transition: all 0.18s;
 }
-
 .algo-btn:hover {
   background: var(--accent-dim);
   color: var(--accent);
   border-color: var(--border);
   transform: translateX(2px);
 }
-
 .algo-btn.active {
   background: var(--accent-light);
   color: var(--accent-deep);
   border-color: var(--accent);
   font-weight: 600;
 }
-
 .algo-dot {
   width: 8px; height: 8px;
   border-radius: 50%;
   flex-shrink: 0;
 }
-
 .complexity-badge {
   margin-left: auto;
   font-family: var(--mono);
@@ -235,16 +206,12 @@ body {
   border: 1px solid var(--border-soft);
   white-space: nowrap;
 }
-
-/* ===== MAIN CONTENT ===== */
 .main {
   flex: 1;
   display: flex;
   flex-direction: column;
   overflow: hidden;
 }
-
-/* ===== CONTROLS ===== */
 .controls {
   display: flex;
   align-items: center;
@@ -255,7 +222,6 @@ body {
   flex-wrap: wrap;
   box-shadow: var(--shadow-sm);
 }
-
 .ctrl-btn {
   display: flex;
   align-items: center;
@@ -273,7 +239,6 @@ body {
   white-space: nowrap;
   box-shadow: var(--shadow-sm);
 }
-
 .ctrl-btn:hover:not(:disabled) {
   border-color: var(--accent);
   color: var(--accent);
@@ -281,52 +246,44 @@ body {
   transform: translateY(-1px);
   box-shadow: var(--shadow);
 }
-
 .ctrl-btn.primary {
   background: var(--accent);
   color: #fff;
   border-color: var(--accent);
   box-shadow: 0 2px 10px rgba(181,112,58,0.35);
 }
-
 .ctrl-btn.primary:hover:not(:disabled) {
   background: var(--accent-deep);
   border-color: var(--accent-deep);
   color: #fff;
   box-shadow: 0 4px 14px rgba(181,112,58,0.4);
 }
-
 .ctrl-btn.danger {
   background: rgba(192,72,88,0.1);
   color: var(--red);
   border-color: rgba(192,72,88,0.3);
 }
-
 .ctrl-btn.danger:hover:not(:disabled) {
   background: rgba(192,72,88,0.18);
   transform: translateY(-1px);
 }
-
 .ctrl-btn:disabled {
   opacity: 0.38;
   cursor: not-allowed;
   transform: none !important;
   box-shadow: none !important;
 }
-
 .ctrl-divider {
   width: 1px;
   height: 22px;
   background: var(--border);
   flex-shrink: 0;
 }
-
 .ctrl-group {
   display: flex;
   align-items: center;
   gap: 7px;
 }
-
 .ctrl-label {
   font-family: var(--mono);
   font-size: 0.58rem;
@@ -335,7 +292,6 @@ body {
   white-space: nowrap;
   text-transform: uppercase;
 }
-
 .speed-slider {
   -webkit-appearance: none;
   width: 88px; height: 4px;
@@ -343,7 +299,6 @@ body {
   border-radius: 10px;
   outline: none;
 }
-
 .speed-slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   width: 14px; height: 14px;
@@ -352,8 +307,7 @@ body {
   cursor: pointer;
   box-shadow: 0 1px 4px rgba(181,112,58,0.35);
 }
-
-.size-input, .custom-input {
+.size-input {
   padding: 6px 10px;
   background: var(--panel);
   border: 1.5px solid var(--border);
@@ -363,13 +317,9 @@ body {
   font-size: 0.74rem;
   outline: none;
   transition: border-color 0.15s;
+  width: 62px; text-align: center;
 }
-
-.size-input { width: 56px; text-align: center; }
-.custom-input { width: 200px; }
-.size-input:focus, .custom-input:focus { border-color: var(--accent); }
-
-/* ===== CANVAS AREA ===== */
+.size-input:focus { border-color: var(--accent); }
 .canvas-area {
   flex: 1;
   display: flex;
@@ -378,8 +328,6 @@ body {
   gap: 11px;
   overflow: hidden;
 }
-
-/* ===== VIZ CONTAINER ===== */
 .viz-container {
   flex: 1;
   background: var(--surface);
@@ -390,7 +338,6 @@ body {
   min-height: 0;
   box-shadow: var(--shadow-sm);
 }
-
 .bars-wrapper {
   display: flex;
   align-items: flex-end;
@@ -398,7 +345,6 @@ body {
   padding: 16px 16px 36px;
   gap: 2px;
 }
-
 .bar {
   flex: 1;
   border-radius: 5px 5px 0 0;
@@ -409,7 +355,6 @@ body {
   max-width: 60px;
   cursor: default;
 }
-
 .bar::after {
   content: attr(data-v);
   position: absolute;
@@ -422,21 +367,17 @@ body {
   white-space: nowrap;
   pointer-events: none;
 }
-
 .bar.compare { background: var(--bar-compare) !important; }
 .bar.swap    { background: var(--bar-swap) !important; }
 .bar.sorted  { background: var(--bar-sorted) !important; }
 .bar.pivot   { background: var(--bar-pivot) !important; }
 .bar.current { background: var(--bar-current) !important; }
-.bar.key     { background: var(--accent2) !important; }
-
-/* ===== BOTTOM INFO ROW ===== */
+.bar.digit   { background: var(--teal) !important; }
 .info-row {
   display: flex;
   gap: 9px;
   align-items: stretch;
 }
-
 .stat-card {
   background: var(--surface);
   border: 1.5px solid var(--border);
@@ -448,7 +389,6 @@ body {
   min-width: 90px;
   box-shadow: var(--shadow-sm);
 }
-
 .stat-label {
   font-family: var(--mono);
   font-size: 0.52rem;
@@ -456,14 +396,12 @@ body {
   text-transform: uppercase;
   letter-spacing: 1.5px;
 }
-
 .stat-value {
   font-family: var(--mono);
   font-size: 1.05rem;
   font-weight: 500;
   color: var(--accent);
 }
-
 .step-log {
   flex: 1;
   background: var(--surface);
@@ -479,21 +417,17 @@ body {
   overflow: hidden;
   box-shadow: var(--shadow-sm);
 }
-
 .step-prefix {
   color: var(--accent);
   font-weight: 500;
   white-space: nowrap;
   flex-shrink: 0;
 }
-
 .step-text {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-
-/* ===== LEGEND (sidebar) ===== */
 .legend-item {
   display: flex;
   align-items: center;
@@ -502,14 +436,11 @@ body {
   font-size: 0.6rem;
   color: var(--muted);
 }
-
 .legend-dot {
   width: 10px; height: 10px;
   border-radius: 3px;
   flex-shrink: 0;
 }
-
-/* ===== PSEUDO CODE PANEL ===== */
 .pseudo-panel {
   background: var(--surface);
   border: 1.5px solid var(--border);
@@ -524,12 +455,24 @@ body {
   overflow-y: auto;
   box-shadow: var(--shadow-sm);
 }
-
 .pseudo-panel .kw { color: var(--accent2); }
 .pseudo-panel .fn { color: var(--accent3); }
 .pseudo-panel .cm { color: var(--border-hover); font-style: italic; }
-
-/* ===== COMPARE MODE ===== */
+.pseudo-line {
+  display: block;
+  padding: 1px 6px;
+  border-radius: 4px;
+  border-left: 2px solid transparent;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+  line-height: 1.95;
+  white-space: pre;
+}
+.pseudo-line.active {
+  background: rgba(181,112,58,0.18);
+  border-left-color: var(--accent);
+  color: var(--text);
+  font-weight: 500;
+}
 .compare-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -537,7 +480,6 @@ body {
   flex: 1;
   min-height: 0;
 }
-
 .compare-cell {
   background: var(--surface);
   border: 1.5px solid var(--border);
@@ -547,7 +489,6 @@ body {
   overflow: hidden;
   box-shadow: var(--shadow-sm);
 }
-
 .compare-header {
   display: flex;
   align-items: center;
@@ -556,27 +497,19 @@ body {
   border-bottom: 1.5px solid var(--border);
   background: var(--panel);
 }
-
 .compare-title {
   font-family: var(--font);
   font-size: 0.78rem;
   font-weight: 600;
   font-style: italic;
 }
-
 .compare-stats { display: flex; gap: 10px; }
-
 .cstat {
   font-family: var(--mono);
   font-size: 0.6rem;
   color: var(--muted);
 }
-
-.cstat span {
-  color: var(--accent);
-  font-weight: 500;
-}
-
+.cstat span { color: var(--accent); font-weight: 500; }
 .compare-bars {
   flex: 1;
   display: flex;
@@ -585,7 +518,6 @@ body {
   gap: 2px;
   min-height: 0;
 }
-
 .compare-status {
   padding: 5px 13px;
   font-family: var(--mono);
@@ -597,8 +529,6 @@ body {
   text-overflow: ellipsis;
   background: var(--panel);
 }
-
-/* ===== WELCOME SCREEN ===== */
 .welcome {
   display: flex;
   flex-direction: column;
@@ -608,7 +538,6 @@ body {
   gap: 12px;
   text-align: center;
 }
-
 .welcome-icon {
   width: 64px; height: 64px;
   background: var(--accent-light);
@@ -619,14 +548,7 @@ body {
   margin-bottom: 4px;
   box-shadow: var(--shadow);
 }
-
-.welcome h2 {
-  font-size: 1.15rem;
-  font-weight: 700;
-  font-style: italic;
-  color: var(--text);
-}
-
+.welcome h2 { font-size: 1.15rem; font-weight: 700; font-style: italic; color: var(--text); }
 .welcome p {
   font-family: var(--mono);
   font-size: 0.65rem;
@@ -634,19 +556,14 @@ body {
   max-width: 270px;
   line-height: 1.85;
 }
-
-/* ===== MODAL ===== */
 .modal-overlay {
   position: fixed; inset: 0;
   background: rgba(80,55,30,0.35);
-  display: flex; align-items: center; justify-content: center;
+  display: none; align-items: center; justify-content: center;
   z-index: 200;
-  display: none;
   backdrop-filter: blur(2px);
 }
-
 .modal-overlay.open { display: flex; }
-
 .modal {
   background: var(--surface);
   border: 1.5px solid var(--border);
@@ -656,14 +573,7 @@ body {
   max-width: 90vw;
   box-shadow: var(--shadow-md);
 }
-
-.modal h3 {
-  font-size: 1rem;
-  font-weight: 700;
-  font-style: italic;
-  margin-bottom: 6px;
-}
-
+.modal h3 { font-size: 1rem; font-weight: 700; font-style: italic; margin-bottom: 6px; }
 .modal p {
   font-family: var(--mono);
   font-size: 0.65rem;
@@ -671,7 +581,6 @@ body {
   margin-bottom: 16px;
   line-height: 1.8;
 }
-
 .modal-input {
   width: 100%;
   padding: 10px 14px;
@@ -685,21 +594,11 @@ body {
   margin-bottom: 16px;
   transition: border-color 0.15s;
 }
-
 .modal-input:focus { border-color: var(--accent); }
-
-.modal-btns {
-  display: flex;
-  gap: 8px;
-  justify-content: flex-end;
-}
-
-/* ===== SCROLLBARS ===== */
+.modal-btns { display: flex; gap: 8px; justify-content: flex-end; }
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
-
-/* ===== ALGO INFO PANEL ===== */
 .algo-info {
   background: var(--surface);
   border: 1.5px solid var(--border);
@@ -707,29 +606,9 @@ body {
   padding: 11px 14px;
   box-shadow: var(--shadow-sm);
 }
-
-.algo-info-title {
-  font-size: 0.95rem;
-  font-weight: 700;
-  font-style: italic;
-  color: var(--text);
-  margin-bottom: 3px;
-}
-
-.algo-info-desc {
-  font-family: var(--mono);
-  font-size: 0.63rem;
-  color: var(--muted);
-  line-height: 1.75;
-}
-
-.complexity-chips {
-  display: flex;
-  gap: 5px;
-  margin-top: 8px;
-  flex-wrap: wrap;
-}
-
+.algo-info-title { font-size: 0.95rem; font-weight: 700; font-style: italic; color: var(--text); margin-bottom: 3px; }
+.algo-info-desc { font-family: var(--mono); font-size: 0.63rem; color: var(--muted); line-height: 1.75; }
+.complexity-chips { display: flex; gap: 5px; margin-top: 8px; flex-wrap: wrap; }
 .chip {
   font-family: var(--mono);
   font-size: 0.57rem;
@@ -739,21 +618,13 @@ body {
   color: var(--text-soft);
   background: var(--panel2);
 }
-
 .chip.best  { border-color: rgba(90,140,92,0.5); color: var(--green); background: var(--accent3-light); }
 .chip.avg   { border-color: rgba(201,144,58,0.5); color: var(--yellow); background: rgba(201,144,58,0.1); }
 .chip.worst { border-color: rgba(192,72,88,0.5); color: var(--red); background: rgba(192,72,88,0.08); }
 .chip.space { border-color: rgba(128,96,184,0.5); color: var(--purple); background: var(--accent4-light); }
-.chip.stable { border-color: rgba(181,112,58,0.5); color: var(--accent); background: var(--accent-light); }
-
-/* ===== PROGRESS BAR ===== */
-.progress-bar {
-  height: 3px;
-  background: var(--border);
-  border-radius: 10px;
-  overflow: hidden;
-}
-
+.chip.stable{ border-color: rgba(181,112,58,0.5); color: var(--accent); background: var(--accent-light); }
+.chip.linear{ border-color: rgba(58,138,138,0.5); color: var(--teal); background: rgba(58,138,138,0.1); }
+.progress-bar { height: 3px; background: var(--border); border-radius: 10px; overflow: hidden; }
 .progress-fill {
   height: 100%;
   background: linear-gradient(90deg, var(--accent), var(--accent2));
@@ -761,8 +632,6 @@ body {
   transition: width 0.1s;
   width: 0%;
 }
-
-/* ===== COMPARE TABLE ===== */
 .compare-table-wrapper {
   background: var(--surface);
   border: 1.5px solid var(--border);
@@ -770,14 +639,12 @@ body {
   overflow: hidden;
   box-shadow: var(--shadow-sm);
 }
-
 .compare-table {
   width: 100%;
   border-collapse: collapse;
   font-family: var(--mono);
   font-size: 0.7rem;
 }
-
 .compare-table th {
   background: var(--panel);
   padding: 10px 14px;
@@ -789,75 +656,389 @@ body {
   letter-spacing: 1.5px;
   border-bottom: 1.5px solid var(--border);
 }
-
 .compare-table td {
   padding: 9px 14px;
   color: var(--text-soft);
   border-bottom: 1px solid var(--border-soft);
 }
-
 .compare-table tr:last-child td { border-bottom: none; }
 .compare-table tr:hover td { background: var(--panel); }
-
 .compare-table td.best-t  { color: var(--green); }
 .compare-table td.good-t  { color: var(--accent); }
 .compare-table td.bad-t   { color: var(--red); }
 .compare-table td.ok-t    { color: var(--yellow); }
+.compare-table td.linear-t{ color: var(--teal); }
+
+/* ===== ANALYZER STYLES ===== */
+.analyzer-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  flex: 1;
+  overflow-y: auto;
+  padding: 2px 0;
+}
+.analyzer-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.analyzer-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  padding: 4px 12px;
+  border-radius: var(--r-pill);
+  background: rgba(58,138,138,0.12);
+  border: 1.5px solid rgba(58,138,138,0.35);
+  color: var(--teal);
+}
+.analysis-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 9px;
+}
+.analysis-card {
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r);
+  padding: 12px 14px;
+  box-shadow: var(--shadow-sm);
+}
+.analysis-card .label {
+  font-family: var(--mono);
+  font-size: 0.52rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 5px;
+}
+.analysis-card .value {
+  font-family: var(--mono);
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--accent);
+}
+.analysis-card .sub {
+  font-family: var(--mono);
+  font-size: 0.58rem;
+  color: var(--muted);
+  margin-top: 3px;
+}
+.ranking-list {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+.ranking-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-sm);
+  padding: 10px 14px;
+  box-shadow: var(--shadow-sm);
+  transition: border-color 0.15s;
+}
+.ranking-item:hover { border-color: var(--border-hover); }
+.rank-num {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: var(--muted);
+  width: 20px;
+  text-align: center;
+  flex-shrink: 0;
+}
+.rank-num.gold   { color: #b8860b; }
+.rank-num.silver { color: #888; }
+.rank-num.bronze { color: #a0522d; }
+.rank-bar-wrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.rank-name {
+  font-family: var(--font);
+  font-size: 0.82rem;
+  font-weight: 600;
+  font-style: italic;
+}
+.rank-bar-bg {
+  height: 6px;
+  background: var(--panel2);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.rank-bar-fill {
+  height: 100%;
+  border-radius: 10px;
+  transition: width 0.5s ease;
+}
+.rank-score {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  color: var(--muted);
+  white-space: nowrap;
+  text-align: right;
+  min-width: 90px;
+}
+.rank-verdict {
+  font-family: var(--mono);
+  font-size: 0.58rem;
+  color: var(--muted);
+}
+.analysis-note {
+  background: rgba(58,138,138,0.07);
+  border: 1.5px solid rgba(58,138,138,0.25);
+  border-radius: var(--r);
+  padding: 12px 16px;
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  color: var(--teal);
+  line-height: 1.75;
+}
+
+/* ===== COMPARATOR STYLES ===== */
+.comparator-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  flex: 1;
+  overflow-y: auto;
+  padding: 2px 0;
+}
+.comparator-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.selector-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.selector-label {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  white-space: nowrap;
+}
+.selector-select {
+  padding: 7px 12px;
+  background: var(--panel);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-sm);
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.15s;
+}
+.selector-select:focus { border-color: var(--accent); }
+.recommendation-box {
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+.recommendation-header {
+  background: var(--panel);
+  border-bottom: 1.5px solid var(--border);
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.recommendation-title {
+  font-family: var(--font);
+  font-size: 0.9rem;
+  font-weight: 700;
+  font-style: italic;
+}
+.recommendation-body { padding: 16px; }
+.rec-winner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  padding: 14px;
+  background: var(--accent-light);
+  border: 1.5px solid var(--accent);
+  border-radius: var(--r-sm);
+}
+.rec-winner-icon {
+  font-size: 1.8rem;
+  flex-shrink: 0;
+}
+.rec-winner-name {
+  font-family: var(--font);
+  font-size: 1rem;
+  font-weight: 700;
+  font-style: italic;
+  color: var(--accent-deep);
+}
+.rec-winner-reason {
+  font-family: var(--mono);
+  font-size: 0.63rem;
+  color: var(--accent);
+  margin-top: 2px;
+  line-height: 1.6;
+}
+.rec-scores-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 8px;
+}
+.rec-score-item {
+  background: var(--panel);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-sm);
+  padding: 10px 13px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.rec-score-name {
+  font-family: var(--font);
+  font-size: 0.78rem;
+  font-weight: 600;
+  font-style: italic;
+}
+.rec-score-bar-bg {
+  height: 5px;
+  background: var(--panel2);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.rec-score-bar-fill {
+  height: 100%;
+  border-radius: 10px;
+}
+.rec-score-val {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  color: var(--muted);
+}
+.criteria-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 9px;
+  margin-top: 4px;
+}
+.criteria-card {
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r);
+  padding: 13px 15px;
+  box-shadow: var(--shadow-sm);
+}
+.criteria-card .c-label {
+  font-family: var(--mono);
+  font-size: 0.55rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--muted);
+  margin-bottom: 7px;
+}
+.criteria-card .c-winner {
+  font-family: var(--font);
+  font-size: 0.88rem;
+  font-weight: 700;
+  font-style: italic;
+  margin-bottom: 4px;
+}
+.criteria-card .c-desc {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+/* ===== VIS SIZE WARNING BANNER ===== */
+.size-warning {
+  background: rgba(58,138,138,0.1);
+  border: 1.5px solid rgba(58,138,138,0.35);
+  border-radius: var(--r);
+  padding: 10px 16px;
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  color: var(--teal);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
 </style>
 </head>
 <body>
-
-<!-- HEADER -->
 <header class="header">
   <div class="logo">
     <div class="logo-icon">↕</div>
     <div>
       SortViz
-      <div class="logo-sub">Sorting Visualizer</div>
+      <div class="logo-sub"></div>
     </div>
   </div>
   <div class="tab-nav">
     <button class="tab-btn active" onclick="switchTab('visualize')">Visualize</button>
     <button class="tab-btn" onclick="switchTab('compare')">Compare</button>
+    <button class="tab-btn" onclick="switchTab('analyzer')">Analyzer</button>
+    <button class="tab-btn" onclick="switchTab('comparator')">Comparator</button>
     <button class="tab-btn" onclick="switchTab('complexity')">Complexity</button>
   </div>
 </header>
 
-<!-- BODY -->
 <div class="app-body">
-
   <!-- SIDEBAR -->
   <div class="sidebar">
-    <div class="sidebar-label">Algorithms</div>
-
+    <div class="sidebar-label">O(n²) — Comparison</div>
     <button class="algo-btn" onclick="loadAlgo('bubble')">
       <div class="algo-dot" style="background:#c9903a"></div>
       Bubble Sort
       <span class="complexity-badge">O(n²)</span>
     </button>
-
     <button class="algo-btn" onclick="loadAlgo('selection')">
       <div class="algo-dot" style="background:#8060b8"></div>
       Selection Sort
       <span class="complexity-badge">O(n²)</span>
     </button>
-
     <button class="algo-btn" onclick="loadAlgo('insertion')">
       <div class="algo-dot" style="background:#b05070"></div>
       Insertion Sort
       <span class="complexity-badge">O(n²)</span>
     </button>
-
+    <div class="sidebar-label">O(n log n) — Comparison</div>
     <button class="algo-btn" onclick="loadAlgo('merge')">
       <div class="algo-dot" style="background:#5a8c5c"></div>
       Merge Sort
       <span class="complexity-badge">O(n log n)</span>
     </button>
-
     <button class="algo-btn" onclick="loadAlgo('quick')">
       <div class="algo-dot" style="background:#b5703a"></div>
       Quick Sort
       <span class="complexity-badge">O(n log n)</span>
+    </button>
+    <div class="sidebar-label">Linear — Non-Comparison</div>
+    <button class="algo-btn" onclick="loadAlgo('counting')">
+      <div class="algo-dot" style="background:#3a8a8a"></div>
+      Counting Sort
+      <span class="complexity-badge">O(n+k)</span>
+    </button>
+    <button class="algo-btn" onclick="loadAlgo('radix')">
+      <div class="algo-dot" style="background:#4a6a9a"></div>
+      Radix Sort
+      <span class="complexity-badge">O(nk)</span>
     </button>
 
     <div style="margin-top:auto;padding-top:16px;border-top:1.5px solid var(--border-soft);">
@@ -868,32 +1049,27 @@ body {
         <div class="legend-item"><div class="legend-dot" style="background:var(--bar-swap)"></div>Swapping</div>
         <div class="legend-item"><div class="legend-dot" style="background:var(--bar-sorted)"></div>Sorted</div>
         <div class="legend-item"><div class="legend-dot" style="background:var(--bar-pivot)"></div>Pivot / Key</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--teal)"></div>Digit / Bucket</div>
       </div>
     </div>
   </div>
 
   <!-- MAIN -->
   <div class="main">
-
-    <!-- CONTROLS -->
     <div class="controls" id="controls">
       <button class="ctrl-btn primary" onclick="generateData()">⟳ Generate</button>
       <button class="ctrl-btn primary" id="btn-play" onclick="playAlgo()" disabled>▶ Visualize</button>
       <button class="ctrl-btn danger" id="btn-stop" onclick="stopAlgo()" style="display:none">■ Stop</button>
       <button class="ctrl-btn" id="btn-step" onclick="stepAlgo()" disabled>⏭ Step</button>
       <button class="ctrl-btn" id="btn-reset" onclick="resetViz()" disabled>↺ Reset</button>
-
       <div class="ctrl-divider"></div>
       <button class="ctrl-btn" onclick="openCustomInput()">✎ Custom Input</button>
       <div class="ctrl-divider"></div>
-
       <div class="ctrl-group">
         <span class="ctrl-label">Size</span>
-        <input type="number" class="size-input" id="arr-size" min="5" max="80" value="30">
+        <input type="number" class="size-input" id="arr-size" min="5" max="5000" value="30">
       </div>
-
       <div class="ctrl-divider"></div>
-
       <div class="ctrl-group">
         <span class="ctrl-label">Speed</span>
         <input type="range" class="speed-slider" id="speed" min="1" max="20" value="8">
@@ -901,9 +1077,7 @@ body {
       </div>
     </div>
 
-    <!-- CANVAS AREA -->
     <div class="canvas-area" id="canvas-area">
-
       <!-- Visualize Tab -->
       <div id="tab-visualize" style="display:flex;flex-direction:column;gap:11px;flex:1;min-height:0;">
         <div class="welcome" id="welcome">
@@ -913,33 +1087,38 @@ body {
         </div>
         <div id="viz-main" style="display:none;flex-direction:column;gap:11px;flex:1;min-height:0;">
           <div id="algo-info-panel" class="algo-info"></div>
-          <div class="progress-bar"><div class="progress-fill" id="progress"></div></div>
-          <div style="display:flex;gap:11px;flex:1;min-height:0;">
-            <div class="viz-container" style="flex:1;">
-              <div class="bars-wrapper" id="bars"></div>
-            </div>
-            <div class="pseudo-panel" id="pseudo"></div>
+          <div id="size-warning-banner" class="size-warning" style="display:none;">
+            ⚠ Array size exceeds 70 — visualization is disabled. Switch to the <strong style="margin:0 4px">Analyzer</strong> tab for a full statistical analysis of this array.
           </div>
-          <div class="info-row">
-            <div class="stat-card">
-              <div class="stat-label">Comparisons</div>
-              <div class="stat-value" id="stat-comps">0</div>
+          <div class="progress-bar"><div class="progress-fill" id="progress"></div></div>
+          <div id="viz-viz-section" style="display:flex;flex-direction:column;gap:11px;flex:1;min-height:0;">
+            <div style="display:flex;gap:11px;flex:1;min-height:0;">
+              <div class="viz-container" style="flex:1;">
+                <div class="bars-wrapper" id="bars"></div>
+              </div>
+              <div class="pseudo-panel" id="pseudo"></div>
             </div>
-            <div class="stat-card">
-              <div class="stat-label">Swaps</div>
-              <div class="stat-value" id="stat-swaps">0</div>
-            </div>
-            <div class="stat-card">
-              <div class="stat-label">Array Size</div>
-              <div class="stat-value" id="stat-size">—</div>
-            </div>
-            <div class="stat-card">
-              <div class="stat-label">Steps</div>
-              <div class="stat-value" id="stat-steps">0</div>
-            </div>
-            <div class="step-log">
-              <span class="step-prefix" id="step-pfx">READY</span>
-              <span class="step-text" id="step-msg">Select an algorithm and press Visualize</span>
+            <div class="info-row">
+              <div class="stat-card">
+                <div class="stat-label">Comparisons</div>
+                <div class="stat-value" id="stat-comps">0</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-label">Swaps</div>
+                <div class="stat-value" id="stat-swaps">0</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-label">Array Size</div>
+                <div class="stat-value" id="stat-size">—</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-label">Steps</div>
+                <div class="stat-value" id="stat-steps">0</div>
+              </div>
+              <div class="step-log">
+                <span class="step-prefix" id="step-pfx">READY</span>
+                <span class="step-text" id="step-msg">Select an algorithm and press Visualize</span>
+              </div>
             </div>
           </div>
         </div>
@@ -950,7 +1129,7 @@ body {
         <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
           <div>
             <div style="font-size:1rem;font-weight:700;font-style:italic;">Side-by-Side Comparison</div>
-            <div style="font-family:var(--mono);font-size:0.63rem;color:var(--muted);margin-top:3px;">All algorithms run on the same array simultaneously</div>
+            <div style="font-family:var(--mono);font-size:0.63rem;color:var(--muted);margin-top:3px;">All 7 algorithms run on the same array simultaneously</div>
           </div>
           <div style="display:flex;gap:7px;align-items:center;">
             <button class="ctrl-btn" onclick="generateCompareData()">⟳ New Array</button>
@@ -958,7 +1137,81 @@ body {
             <button class="ctrl-btn danger" id="cmp-stop-btn" onclick="stopCompare()" style="display:none">■ Stop</button>
           </div>
         </div>
-        <div class="compare-grid" id="compare-grid"></div>
+        <div class="compare-grid" id="compare-grid" style="grid-template-columns:repeat(3,1fr);"></div>
+      </div>
+
+      <!-- Analyzer Tab -->
+      <div id="tab-analyzer" style="display:none;flex-direction:column;gap:11px;flex:1;min-height:0;">
+        <div class="analyzer-panel" id="analyzer-content">
+          <div class="welcome">
+            <div class="welcome-icon">📊</div>
+            <h2>Algorithm Analyzer</h2>
+            <p>Set array size > 70 and select an algorithm, or click Analyze below to run a deep statistical analysis without visualization.</p>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:9px;flex-wrap:wrap;flex-shrink:0;">
+          <div class="ctrl-group">
+            <span class="ctrl-label">Array Size</span>
+            <input type="number" class="size-input" id="analyzer-size" min="71" max="100000" value="500" style="width:80px;">
+          </div>
+          <div class="ctrl-group">
+            <span class="ctrl-label">Distribution</span>
+            <select class="selector-select" id="analyzer-dist">
+              <option value="random">Random</option>
+              <option value="nearly">Nearly Sorted</option>
+              <option value="reverse">Reverse Sorted</option>
+              <option value="fewunique">Few Unique Values</option>
+            </select>
+          </div>
+          <button class="ctrl-btn primary" onclick="runAnalysis()">📊 Run Analysis</button>
+        </div>
+      </div>
+
+      <!-- Comparator Tab -->
+      <div id="tab-comparator" style="display:none;flex-direction:column;gap:14px;flex:1;min-height:0;overflow-y:auto;">
+        <div class="comparator-panel" id="comparator-content">
+          <div style="font-size:1rem;font-weight:700;font-style:italic;">Algorithm Comparator</div>
+          <div style="font-family:var(--mono);font-size:0.63rem;color:var(--muted);">Configure the conditions below. The comparator will score and rank all algorithms and recommend the best one.</div>
+          <div class="comparator-controls">
+            <div class="selector-group">
+              <span class="selector-label">Array Size</span>
+              <select class="selector-select" id="cmp-size">
+                <option value="tiny">Tiny (≤ 10)</option>
+                <option value="small">Small (11–100)</option>
+                <option value="medium" selected>Medium (101–1K)</option>
+                <option value="large">Large (1K–100K)</option>
+                <option value="huge">Huge (100K+)</option>
+              </select>
+            </div>
+            <div class="selector-group">
+              <span class="selector-label">Data Distribution</span>
+              <select class="selector-select" id="cmp-dist">
+                <option value="random">Random</option>
+                <option value="nearly">Nearly Sorted</option>
+                <option value="reverse">Reverse Sorted</option>
+                <option value="sorted">Already Sorted</option>
+                <option value="fewunique">Few Unique Values</option>
+                <option value="smallrange">Small Value Range</option>
+              </select>
+            </div>
+            <div class="selector-group">
+              <span class="selector-label">Memory Constraint</span>
+              <select class="selector-select" id="cmp-mem">
+                <option value="none">No Constraint</option>
+                <option value="tight">Tight (O(1) preferred)</option>
+              </select>
+            </div>
+            <div class="selector-group">
+              <span class="selector-label">Stability Required</span>
+              <select class="selector-select" id="cmp-stable">
+                <option value="no">No</option>
+                <option value="yes">Yes</option>
+              </select>
+            </div>
+            <button class="ctrl-btn primary" onclick="runComparator()">⚡ Compare</button>
+          </div>
+          <div id="comparator-results"></div>
+        </div>
       </div>
 
       <!-- Complexity Tab -->
@@ -974,107 +1227,79 @@ body {
                 <th>Worst Case</th>
                 <th>Space</th>
                 <th>Stable</th>
-                <th>Method</th>
+                <th>Type</th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <td style="color:var(--yellow);font-weight:600;font-style:italic;">Bubble Sort</td>
-                <td class="best-t">Ω(n)</td>
-                <td class="bad-t">Θ(n²)</td>
-                <td class="bad-t">O(n²)</td>
-                <td class="best-t">O(1)</td>
-                <td class="best-t">Yes</td>
-                <td>Exchange</td>
+                <td class="best-t">Ω(n)</td><td class="bad-t">Θ(n²)</td><td class="bad-t">O(n²)</td><td class="best-t">O(1)</td><td class="best-t">Yes</td><td>Comparison</td>
               </tr>
               <tr>
                 <td style="color:var(--purple);font-weight:600;font-style:italic;">Selection Sort</td>
-                <td class="bad-t">Ω(n²)</td>
-                <td class="bad-t">Θ(n²)</td>
-                <td class="bad-t">O(n²)</td>
-                <td class="best-t">O(1)</td>
-                <td class="bad-t">No</td>
-                <td>Selection</td>
+                <td class="bad-t">Ω(n²)</td><td class="bad-t">Θ(n²)</td><td class="bad-t">O(n²)</td><td class="best-t">O(1)</td><td class="bad-t">No</td><td>Comparison</td>
               </tr>
               <tr>
                 <td style="color:var(--accent2);font-weight:600;font-style:italic;">Insertion Sort</td>
-                <td class="best-t">Ω(n)</td>
-                <td class="bad-t">Θ(n²)</td>
-                <td class="bad-t">O(n²)</td>
-                <td class="best-t">O(1)</td>
-                <td class="best-t">Yes</td>
-                <td>Insertion</td>
+                <td class="best-t">Ω(n)</td><td class="bad-t">Θ(n²)</td><td class="bad-t">O(n²)</td><td class="best-t">O(1)</td><td class="best-t">Yes</td><td>Comparison</td>
               </tr>
               <tr>
                 <td style="color:var(--green);font-weight:600;font-style:italic;">Merge Sort</td>
-                <td class="good-t">Ω(n log n)</td>
-                <td class="good-t">Θ(n log n)</td>
-                <td class="good-t">O(n log n)</td>
-                <td class="ok-t">O(n)</td>
-                <td class="best-t">Yes</td>
-                <td>Divide & Conquer</td>
+                <td class="good-t">Ω(n log n)</td><td class="good-t">Θ(n log n)</td><td class="good-t">O(n log n)</td><td class="ok-t">O(n)</td><td class="best-t">Yes</td><td>Comparison</td>
               </tr>
               <tr>
                 <td style="color:var(--accent);font-weight:600;font-style:italic;">Quick Sort</td>
-                <td class="good-t">Ω(n log n)</td>
-                <td class="good-t">Θ(n log n)</td>
-                <td class="bad-t">O(n²)</td>
-                <td class="ok-t">O(log n)</td>
-                <td class="bad-t">No</td>
-                <td>Divide & Conquer</td>
+                <td class="good-t">Ω(n log n)</td><td class="good-t">Θ(n log n)</td><td class="bad-t">O(n²)</td><td class="ok-t">O(log n)</td><td class="bad-t">No</td><td>Comparison</td>
+              </tr>
+              <tr>
+                <td style="color:var(--teal);font-weight:600;font-style:italic;">Counting Sort</td>
+                <td class="linear-t">Ω(n+k)</td><td class="linear-t">Θ(n+k)</td><td class="linear-t">O(n+k)</td><td class="ok-t">O(k)</td><td class="best-t">Yes</td><td>Non-Comparison</td>
+              </tr>
+              <tr>
+                <td style="color:#4a6a9a;font-weight:600;font-style:italic;">Radix Sort</td>
+                <td class="linear-t">Ω(nk)</td><td class="linear-t">Θ(nk)</td><td class="linear-t">O(nk)</td><td class="ok-t">O(n+k)</td><td class="best-t">Yes</td><td>Non-Comparison</td>
               </tr>
             </tbody>
           </table>
         </div>
-
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:11px;margin-top:2px;">
           <div class="algo-info">
             <div class="algo-info-title" style="color:var(--yellow);">Bubble Sort</div>
-            <div class="algo-info-desc">Repeatedly swaps adjacent elements that are out of order. The largest elements "bubble up" to the end each pass. Simple to understand but inefficient for large arrays.</div>
-            <div class="complexity-chips">
-              <span class="chip best">Best: O(n)</span>
-              <span class="chip worst">Worst: O(n²)</span>
-              <span class="chip stable">Stable</span>
-            </div>
+            <div class="algo-info-desc">Repeatedly swaps adjacent out-of-order pairs. Simple but O(n²) average. Best case O(n) with early termination when no swaps occur.</div>
+            <div class="complexity-chips"><span class="chip best">Best: O(n)</span><span class="chip worst">Worst: O(n²)</span><span class="chip stable">Stable</span></div>
           </div>
           <div class="algo-info">
             <div class="algo-info-title" style="color:var(--purple);">Selection Sort</div>
-            <div class="algo-info-desc">Finds the minimum element from the unsorted portion and swaps it to the correct position. Makes exactly n-1 swaps, making it useful when swaps are costly.</div>
-            <div class="complexity-chips">
-              <span class="chip worst">Always: O(n²)</span>
-              <span class="chip space">Space: O(1)</span>
-            </div>
+            <div class="algo-info-desc">Finds minimum from unsorted portion each pass. Makes exactly n-1 swaps — useful when write operations are costly. Always O(n²).</div>
+            <div class="complexity-chips"><span class="chip worst">Always: O(n²)</span><span class="chip space">Space: O(1)</span></div>
           </div>
           <div class="algo-info">
             <div class="algo-info-title" style="color:var(--accent2);">Insertion Sort</div>
-            <div class="algo-info-desc">Builds a sorted subarray one element at a time. Excellent for nearly-sorted data and small arrays. Used as the base case in hybrid sorting algorithms.</div>
-            <div class="complexity-chips">
-              <span class="chip best">Best: O(n)</span>
-              <span class="chip worst">Worst: O(n²)</span>
-              <span class="chip stable">Stable</span>
-            </div>
+            <div class="algo-info-desc">Excellent for nearly-sorted data and small arrays. O(n) best case. Used as a base case in TimSort and introsort hybrid algorithms.</div>
+            <div class="complexity-chips"><span class="chip best">Best: O(n)</span><span class="chip worst">Worst: O(n²)</span><span class="chip stable">Stable</span></div>
           </div>
           <div class="algo-info">
             <div class="algo-info-title" style="color:var(--green);">Merge Sort</div>
-            <div class="algo-info-desc">Divide-and-conquer: recursively splits the array in half, sorts each half, and merges them. Guaranteed O(n log n) in all cases. Requires O(n) extra space.</div>
-            <div class="complexity-chips">
-              <span class="chip best">All: O(n log n)</span>
-              <span class="chip space">Space: O(n)</span>
-              <span class="chip stable">Stable</span>
-            </div>
+            <div class="algo-info-desc">Divide-and-conquer; guaranteed O(n log n) in all cases. Requires O(n) extra space. Preferred for linked lists and external sorting.</div>
+            <div class="complexity-chips"><span class="chip best">All: O(n log n)</span><span class="chip space">Space: O(n)</span><span class="chip stable">Stable</span></div>
           </div>
           <div class="algo-info">
             <div class="algo-info-title" style="color:var(--accent);">Quick Sort</div>
-            <div class="algo-info-desc">Picks a pivot and partitions the array around it. Average O(n log n) with excellent cache performance. Worst case O(n²) occurs with bad pivot selection.</div>
-            <div class="complexity-chips">
-              <span class="chip best">Avg: O(n log n)</span>
-              <span class="chip worst">Worst: O(n²)</span>
-              <span class="chip space">Space: O(log n)</span>
-            </div>
+            <div class="algo-info-desc">Average O(n log n) with excellent cache performance and in-place partitioning. Worst case O(n²) with bad pivots; mitigated by randomization.</div>
+            <div class="complexity-chips"><span class="chip best">Avg: O(n log n)</span><span class="chip worst">Worst: O(n²)</span><span class="chip space">Stack: O(log n)</span></div>
+          </div>
+          <div class="algo-info">
+            <div class="algo-info-title" style="color:var(--teal);">Counting Sort</div>
+            <div class="algo-info-desc">Non-comparison sort. Counts element frequencies then reconstructs. O(n+k) where k = value range. Only for non-negative integers with bounded range.</div>
+            <div class="complexity-chips"><span class="chip linear">Linear: O(n+k)</span><span class="chip space">Space: O(k)</span><span class="chip stable">Stable</span></div>
+          </div>
+          <div class="algo-info">
+            <div class="algo-info-title" style="color:#4a6a9a;">Radix Sort</div>
+            <div class="algo-info-desc">Sorts digit by digit using a stable subroutine (LSD/MSD). O(nk) where k = number of digits. Beats comparison sorts for fixed-width integers.</div>
+            <div class="complexity-chips"><span class="chip linear">O(n·k)</span><span class="chip space">Space: O(n+b)</span><span class="chip stable">Stable</span></div>
           </div>
         </div>
       </div>
-
     </div>
   </div>
 </div>
@@ -1083,7 +1308,7 @@ body {
 <div class="modal-overlay" id="modal">
   <div class="modal">
     <h3>Custom Array Input</h3>
-    <p>Enter comma-separated numbers (e.g. 64, 25, 12, 22, 11).<br>Min value: 1 · Max value: 999 · Max items: 60</p>
+    <p>Enter comma-separated non-negative integers.<br>Min value: 0 · Max value: 9999 · Max items: 5000<br>For arrays > 70 elements, only Analyzer mode is available.</p>
     <input type="text" class="modal-input" id="modal-input" placeholder="e.g. 38, 27, 43, 3, 9, 82, 10" />
     <div class="modal-btns">
       <button class="ctrl-btn" onclick="closeModal()">Cancel</button>
@@ -1102,119 +1327,152 @@ let playTimer = null;
 let arr = [];
 let customArr = null;
 let currentTab = 'visualize';
-
 let compareData = {};
 let compareStepsAll = {};
 let compareIdxAll = {};
 let compareActive = false;
 let compareTimers = {};
+const VIZ_LIMIT = 70;
 
 const speed = document.getElementById('speed');
 const speedVal = document.getElementById('speed-val');
 speed.addEventListener('input', () => speedVal.textContent = speed.value + '×');
-
 function getDelay() { return Math.max(20, Math.floor(1200 / parseInt(speed.value))); }
 
 // ====== ALGO META ======
 const ALGOS = {
   bubble: {
-    name: 'Bubble Sort',
-    color: '#c9903a',
-    desc: 'Repeatedly steps through the list, compares adjacent elements and swaps them if they are in the wrong order.',
+    name: 'Bubble Sort', color: '#c9903a',
+    desc: 'Repeatedly steps through the list, compares adjacent elements and swaps if out of order. Early-exit optimization on no-swap pass.',
     best:'Ω(n)', avg:'Θ(n²)', worst:'O(n²)', space:'O(1)', stable:'Yes',
-    pseudo:`BubbleSort(A, n):
-  <span class="kw">for</span> i = 0 <span class="kw">to</span> n-1:
-    swapped = <span class="kw">false</span>
-    <span class="kw">for</span> j = 0 <span class="kw">to</span> n-i-2:
-      <span class="kw">if</span> A[j] > A[j+1]:
-        swap(A[j], A[j+1])
-        swapped = <span class="kw">true</span>
-    <span class="kw">if</span> !swapped: <span class="kw">break</span>
-    <span class="cm">// early exit`
+    pseudoLines: [
+      `<span class="kw">BubbleSort</span>(A, n):`,
+      `  <span class="kw">for</span> i = 0 <span class="kw">to</span> n-1:`,
+      `    swapped = <span class="kw">false</span>`,
+      `    <span class="kw">for</span> j = 0 <span class="kw">to</span> n-i-2:`,
+      `      <span class="kw">if</span> A[j] > A[j+1]:`,
+      `        swap(A[j], A[j+1])`,
+      `        swapped = <span class="kw">true</span>`,
+      `    <span class="kw">if</span> !swapped: <span class="kw">break</span>`,
+      `    <span class="cm">// O(n) best case — early exit</span>`,
+    ]
   },
   selection: {
-    name: 'Selection Sort',
-    color: '#8060b8',
-    desc: 'Divides the array into sorted and unsorted regions. Repeatedly finds the minimum element from the unsorted region and moves it to the beginning.',
+    name: 'Selection Sort', color: '#8060b8',
+    desc: 'Finds the minimum element from the unsorted region each pass and places it at the correct position. Always O(n²) comparisons.',
     best:'Ω(n²)', avg:'Θ(n²)', worst:'O(n²)', space:'O(1)', stable:'No',
-    pseudo:`SelectionSort(A, n):
-  <span class="kw">for</span> i = 0 <span class="kw">to</span> n-1:
-    minIdx = i
-    <span class="kw">for</span> j = i+1 <span class="kw">to</span> n:
-      <span class="kw">if</span> A[j] < A[minIdx]:
-        minIdx = j
-    <span class="kw">if</span> minIdx != i:
-      swap(A[i], A[minIdx])
-    <span class="cm">// A[0..i] is now sorted`
+    pseudoLines: [
+      `<span class="kw">SelectionSort</span>(A, n):`,
+      `  <span class="kw">for</span> i = 0 <span class="kw">to</span> n-1:`,
+      `    minIdx = i`,
+      `    <span class="kw">for</span> j = i+1 <span class="kw">to</span> n:`,
+      `      <span class="kw">if</span> A[j] < A[minIdx]:`,
+      `        minIdx = j`,
+      `    <span class="kw">if</span> minIdx != i:`,
+      `      swap(A[i], A[minIdx])`,
+    ]
   },
   insertion: {
-    name: 'Insertion Sort',
-    color: '#b05070',
-    desc: 'Builds a sorted subarray one element at a time. Takes the next element and inserts it at the correct position in the sorted portion.',
+    name: 'Insertion Sort', color: '#b05070',
+    desc: 'Builds sorted subarray one element at a time. Excellent for nearly-sorted data. Base case in hybrid algorithms like TimSort.',
     best:'Ω(n)', avg:'Θ(n²)', worst:'O(n²)', space:'O(1)', stable:'Yes',
-    pseudo:`InsertionSort(A, n):
-  <span class="kw">for</span> i = 1 <span class="kw">to</span> n-1:
-    key = A[i]
-    j = i - 1
-    <span class="kw">while</span> j >= 0 <span class="kw">and</span>
-          A[j] > key:
-      A[j+1] = A[j]
-      j = j - 1
-    A[j+1] = key
-    <span class="cm">// key is in place`
+    pseudoLines: [
+      `<span class="kw">InsertionSort</span>(A, n):`,
+      `  <span class="kw">for</span> i = 1 <span class="kw">to</span> n-1:`,
+      `    key = A[i]`,
+      `    j = i - 1`,
+      `    <span class="kw">while</span> j >= 0 <span class="kw">and</span>`,
+      `          A[j] > key:`,
+      `      A[j+1] = A[j]`,
+      `      j = j - 1`,
+      `    A[j+1] = key`,
+    ]
   },
   merge: {
-    name: 'Merge Sort',
-    color: '#5a8c5c',
-    desc: 'Divide-and-conquer: recursively splits the array in half, sorts each half, then merges sorted halves back together.',
+    name: 'Merge Sort', color: '#5a8c5c',
+    desc: 'Divide-and-conquer: recursively halves, sorts, and merges. Guaranteed O(n log n) in all cases. Requires O(n) auxiliary space.',
     best:'Ω(n log n)', avg:'Θ(n log n)', worst:'O(n log n)', space:'O(n)', stable:'Yes',
-    pseudo:`MergeSort(A, l, r):
-  <span class="kw">if</span> l < r:
-    m = (l + r) / 2
-    MergeSort(A, l, m)
-    MergeSort(A, m+1, r)
-    Merge(A, l, m, r)
-
-Merge(A, l, m, r):
-  <span class="cm">// Copy to temp arrays L, R
-  i = 0; j = 0; k = l
-  <span class="kw">while</span> i < |L| <span class="kw">and</span> j < |R|:
-    <span class="kw">if</span> L[i] <= R[j]:
-      A[k++] = L[i++]
-    <span class="kw">else</span>: A[k++] = R[j++]`
+    pseudoLines: [
+      `<span class="kw">MergeSort</span>(A, l, r):`,
+      `  <span class="kw">if</span> l < r:`,
+      `    m = (l + r) / 2`,
+      `    MergeSort(A, l, m)`,
+      `    MergeSort(A, m+1, r)`,
+      `    Merge(A, l, m, r)`,
+      `<span class="kw">Merge</span>(A, l, m, r):`,
+      `  copy to L[], R[]`,
+      `  i=0; j=0; k=l`,
+      `  <span class="kw">while</span> i<|L| <span class="kw">and</span> j<|R|:`,
+      `    <span class="kw">if</span> L[i] <= R[j]: A[k++]=L[i++]`,
+      `    <span class="kw">else</span>: A[k++]=R[j++]`,
+      `  copy remaining elements`,
+    ]
   },
   quick: {
-    name: 'Quick Sort',
-    color: '#b5703a',
-    desc: 'Picks a pivot element, partitions the array so elements ≤ pivot come before and elements > pivot come after, then recursively sorts sub-arrays.',
+    name: 'Quick Sort', color: '#b5703a',
+    desc: 'Picks pivot, partitions array around it, recurses. O(n log n) average with excellent cache performance. Worst case O(n²) on bad pivots.',
     best:'Ω(n log n)', avg:'Θ(n log n)', worst:'O(n²)', space:'O(log n)', stable:'No',
-    pseudo:`QuickSort(A, lo, hi):
-  <span class="kw">if</span> lo < hi:
-    p = Partition(A, lo, hi)
-    QuickSort(A, lo, p-1)
-    QuickSort(A, p+1, hi)
-
-Partition(A, lo, hi):
-  pivot = A[hi]
-  i = lo - 1
-  <span class="kw">for</span> j = lo <span class="kw">to</span> hi-1:
-    <span class="kw">if</span> A[j] <= pivot:
-      i++
-      swap(A[i], A[j])
-  swap(A[i+1], A[hi])
-  <span class="kw">return</span> i + 1`
+    pseudoLines: [
+      `<span class="kw">QuickSort</span>(A, lo, hi):`,
+      `  <span class="kw">if</span> lo < hi:`,
+      `    p = Partition(A, lo, hi)`,
+      `    QuickSort(A, lo, p-1)`,
+      `    QuickSort(A, p+1, hi)`,
+      `<span class="kw">Partition</span>(A, lo, hi):`,
+      `  pivot = A[hi]`,
+      `  i = lo - 1`,
+      `  <span class="kw">for</span> j = lo <span class="kw">to</span> hi-1:`,
+      `    <span class="kw">if</span> A[j] <= pivot:`,
+      `      i++; swap(A[i], A[j])`,
+      `  swap(A[i+1], A[hi])`,
+      `  <span class="kw">return</span> i + 1`,
+    ]
+  },
+  counting: {
+    name: 'Counting Sort', color: '#3a8a8a',
+    desc: 'Counts occurrences of each value, builds prefix sums, then places elements. O(n+k) time. Only for non-negative integers with bounded range k.',
+    best:'Ω(n+k)', avg:'Θ(n+k)', worst:'O(n+k)', space:'O(k)', stable:'Yes',
+    pseudoLines: [
+      `<span class="kw">CountingSort</span>(A, n, k):`,
+      `  count[0..k] = {0}`,
+      `  <span class="kw">for</span> i=0 <span class="kw">to</span> n-1:`,
+      `    count[A[i]]++`,
+      `  <span class="cm">// prefix sum pass</span>`,
+      `  <span class="kw">for</span> i=1 <span class="kw">to</span> k:`,
+      `    count[i] += count[i-1]`,
+      `  <span class="cm">// place in output</span>`,
+      `  <span class="kw">for</span> i=n-1 <span class="kw">downto</span> 0:`,
+      `    out[count[A[i]]-1] = A[i]`,
+      `    count[A[i]]--`,
+    ]
+  },
+  radix: {
+    name: 'Radix Sort', color: '#4a6a9a',
+    desc: 'Sorts by individual digits from least significant to most significant (LSD). Uses Counting Sort as a stable subroutine per digit. O(nk) total.',
+    best:'Ω(nk)', avg:'Θ(nk)', worst:'O(nk)', space:'O(n+b)', stable:'Yes',
+    pseudoLines: [
+      `<span class="kw">RadixSort</span>(A, n):`,
+      `  max = max(A)`,
+      `  <span class="cm">// LSD — least significant first</span>`,
+      `  <span class="kw">for</span> exp=1; max/exp>0; exp*=10:`,
+      `    CountingByDigit(A, n, exp)`,
+      `<span class="kw">CountingByDigit</span>(A, n, exp):`,
+      `  digit = (A[i] / exp) % 10`,
+      `  <span class="cm">// stable counting sort on digit</span>`,
+      `  build count[], prefix sums`,
+      `  place elements in output[]`,
+    ]
   }
 };
 
 // ====== TAB SWITCH ======
 function switchTab(tab) {
   currentTab = tab;
-  document.querySelectorAll('.tab-btn').forEach((b,i) => {
-    b.classList.toggle('active', ['visualize','compare','complexity'][i] === tab);
+  ['visualize','compare','analyzer','comparator','complexity'].forEach((t, i) => {
+    document.querySelectorAll('.tab-btn')[i].classList.toggle('active', t === tab);
+    const el = document.getElementById('tab-' + t);
+    if (el) el.style.display = t === tab ? 'flex' : 'none';
   });
-  document.getElementById('tab-visualize').style.display = tab==='visualize' ? 'flex' : 'none';
-  document.getElementById('tab-compare').style.display = tab==='compare' ? 'flex' : 'none';
-  document.getElementById('tab-complexity').style.display = tab==='complexity' ? 'flex' : 'none';
   if (tab === 'compare') initCompareTab();
 }
 
@@ -1224,14 +1482,11 @@ function loadAlgo(name) {
   stopAlgo();
   currentAlgo = name;
   steps = []; stepIdx = 0;
-
   document.querySelectorAll('.algo-btn').forEach(b => {
     b.classList.toggle('active', b.getAttribute('onclick') === `loadAlgo('${name}')`);
   });
-
   document.getElementById('welcome').style.display = 'none';
   document.getElementById('viz-main').style.display = 'flex';
-
   const meta = ALGOS[name];
   document.getElementById('algo-info-panel').innerHTML = `
     <div class="algo-info-title">${meta.name}</div>
@@ -1244,9 +1499,9 @@ function loadAlgo(name) {
       <span class="chip stable">Stable: ${meta.stable}</span>
     </div>
   `;
-
-  document.getElementById('pseudo').innerHTML = `<pre style="white-space:pre-wrap;">${meta.pseudo}</pre>`;
-
+  document.getElementById('pseudo').innerHTML = meta.pseudoLines.map((line, i) =>
+    `<div class="pseudo-line" id="pseudo-line-${i}" data-line="${i}">${line}</div>`
+  ).join('');
   setButtons(false);
   generateData();
 }
@@ -1256,20 +1511,28 @@ function generateData() {
   steps = []; stepIdx = 0;
   setButtons(false);
   if (!currentAlgo) return;
-
   const size = parseInt(document.getElementById('arr-size').value) || 30;
   if (customArr) {
     arr = [...customArr];
   } else {
     arr = Array.from({length: size}, () => Math.floor(Math.random() * 88) + 12);
   }
-
-  renderBars(arr, []);
-  updateStats(0, 0, arr.length, 0);
-  updateLog('READY', 'Press ▶ Visualize or ⏭ Step to begin');
-  updateProgress(0);
-  document.getElementById('btn-play').disabled = false;
-  document.getElementById('btn-step').disabled = false;
+  const isLarge = arr.length > VIZ_LIMIT;
+  const warning = document.getElementById('size-warning-banner');
+  const vizSection = document.getElementById('viz-viz-section');
+  warning.style.display = isLarge ? 'flex' : 'none';
+  vizSection.style.display = isLarge ? 'none' : 'flex';
+  document.getElementById('btn-play').disabled = isLarge;
+  document.getElementById('btn-step').disabled = isLarge;
+  if (!isLarge) {
+    renderBars(arr, []);
+    updateStats(0, 0, arr.length, 0);
+    updateLog('READY', 'Press ▶ Visualize or ⏭ Step to begin');
+    updateProgress(0);
+  } else {
+    updateStats(0, 0, arr.length, 0);
+    updateLog('LARGE ARRAY', 'Array > 70 — use Analyzer tab for full analysis');
+  }
 }
 
 // ====== RENDER BARS ======
@@ -1285,33 +1548,29 @@ function renderBars(a, states) {
   }).join('');
 }
 
-// ====== STATS ======
 function updateStats(comps, swaps, size, steps_done) {
   document.getElementById('stat-comps').textContent = comps;
   document.getElementById('stat-swaps').textContent = swaps;
   if (size !== undefined) document.getElementById('stat-size').textContent = size;
   if (steps_done !== undefined) document.getElementById('stat-steps').textContent = steps_done;
 }
-
 function updateLog(prefix, msg) {
   document.getElementById('step-pfx').textContent = prefix;
   document.getElementById('step-msg').textContent = msg;
 }
-
 function updateProgress(pct) {
   document.getElementById('progress').style.width = pct + '%';
 }
 
-// ====== BUTTONS ======
 function setButtons(running) {
-  document.getElementById('btn-play').disabled = running;
-  document.getElementById('btn-step').disabled = running || steps.length === 0;
+  const isLarge = arr.length > VIZ_LIMIT;
+  document.getElementById('btn-play').disabled = running || isLarge;
+  document.getElementById('btn-step').disabled = running || steps.length === 0 || isLarge;
   document.getElementById('btn-reset').disabled = !running && steps.length === 0;
   document.getElementById('btn-stop').style.display = running ? 'inline-flex' : 'none';
   document.getElementById('btn-play').style.display = running ? 'none' : 'inline-flex';
 }
 
-// ====== PLAY / STEP / STOP ======
 function playAlgo() {
   if (!currentAlgo) return;
   if (steps.length === 0) buildSteps();
@@ -1320,14 +1579,12 @@ function playAlgo() {
   setButtons(true);
   runStep();
 }
-
 function runStep() {
   if (!playing || stepIdx >= steps.length) { stopAlgo(); return; }
   applyStep(steps[stepIdx]);
   stepIdx++;
   playTimer = setTimeout(runStep, getDelay());
 }
-
 function stepAlgo() {
   if (steps.length === 0) buildSteps();
   if (stepIdx < steps.length) {
@@ -1337,164 +1594,574 @@ function stepAlgo() {
     if (stepIdx >= steps.length) document.getElementById('btn-step').disabled = true;
   }
 }
-
 function stopAlgo() {
   playing = false;
   clearTimeout(playTimer);
   setButtons(false);
 }
-
 function resetViz() {
   stopAlgo();
   steps = []; stepIdx = 0;
   generateData();
 }
-
 function applyStep(s) {
   if (!s) return;
   renderBars(s.arr, s.states || []);
   updateStats(s.comps, s.swaps, s.arr.length, stepIdx);
   updateLog(`STEP ${stepIdx}/${steps.length}`, s.msg || '');
   updateProgress(Math.round((stepIdx / steps.length) * 100));
+  // Highlight pseudocode line
+  if (s.line !== undefined) {
+    document.querySelectorAll('.pseudo-line').forEach(el => el.classList.remove('active'));
+    const target = document.getElementById(`pseudo-line-${s.line}`);
+    if (target) {
+      target.classList.add('active');
+      target.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+    }
+  }
 }
-
-// ====== BUILD STEPS ======
 function buildSteps() {
   steps = generateSortingSteps(currentAlgo, [...arr]);
 }
 
-// ====== SORTING ALGORITHMS ======
+// ====== SORTING ALGORITHMS (with steps) ======
 function generateSortingSteps(name, a) {
   const out = [];
   let comps = 0, swaps = 0;
-
-  function st(states, msg) {
-    out.push({ arr: [...a], states: [...states], comps, swaps, msg });
+  function st(states, msg, line) {
+    out.push({ arr: [...a], states: [...states], comps, swaps, msg, line });
+  }
+  function makeState(n, hl, sortedFrom, total) {
+    return Array.from({length:n}, (_,i) => {
+      if (hl[i]) return hl[i];
+      if (i >= sortedFrom) return 'sorted';
+      return '';
+    });
   }
 
   if (name === 'bubble') {
+    // lines: 0=fn, 1=for i, 2=swapped=false, 3=for j, 4=if compare, 5=swap, 6=swapped=true, 7=if !swapped break
     const n = a.length;
     for (let i = 0; i < n - 1; i++) {
       let swapped = false;
+      st(makeState(n, {}, n-i, n), `Outer loop: i=${i}`, 1);
+      st(makeState(n, {}, n-i, n), `swapped = false`, 2);
       for (let j = 0; j < n - i - 1; j++) {
         comps++;
-        const s = makeState(n, {[j]:'compare',[j+1]:'compare'}, n-i, n);
-        st(s, `Comparing A[${j}]=${a[j]} and A[${j+1}]=${a[j+1]}`);
+        st(makeState(n, {[j]:'compare',[j+1]:'compare'}, n-i, n), `Inner loop: j=${j}`, 3);
+        st(makeState(n, {[j]:'compare',[j+1]:'compare'}, n-i, n), `Comparing A[${j}]=${a[j]} and A[${j+1}]=${a[j+1]}`, 4);
         if (a[j] > a[j+1]) {
           [a[j], a[j+1]] = [a[j+1], a[j]]; swaps++; swapped = true;
-          const s2 = makeState(n, {[j]:'swap',[j+1]:'swap'}, n-i, n);
-          st(s2, `Swapped → A[${j}]=${a[j]}, A[${j+1}]=${a[j+1]}`);
+          st(makeState(n, {[j]:'swap',[j+1]:'swap'}, n-i, n), `Swapped → A[${j}]=${a[j]}, A[${j+1}]=${a[j+1]}`, 5);
+          st(makeState(n, {[j]:'swap',[j+1]:'swap'}, n-i, n), `swapped = true`, 6);
         }
       }
+      st(makeState(n, {}, n-i-1, n), `Check if !swapped (swapped=${swapped}) — ${!swapped?'break early':'continue'}`, 7);
       if (!swapped) break;
     }
-    out.push({ arr: [...a], states: Array(a.length).fill('sorted'), comps, swaps, msg: '✓ Array is fully sorted!' });
-
   } else if (name === 'selection') {
+    // lines: 0=fn, 1=for i, 2=minIdx=i, 3=for j, 4=if compare, 5=minIdx=j, 6=if minIdx!=i, 7=swap
     const n = a.length;
     for (let i = 0; i < n - 1; i++) {
       let minIdx = i;
+      st(makeState(n, {[i]:'current'}, i, n), `Outer loop: i=${i}`, 1);
+      st(makeState(n, {[i]:'current'}, i, n), `minIdx = ${i}`, 2);
       for (let j = i + 1; j < n; j++) {
         comps++;
-        const s = makeState(n, {[minIdx]:'current',[j]:'compare'}, i, n);
-        st(s, `Scanning: A[${j}]=${a[j]} vs current min A[${minIdx}]=${a[minIdx]}`);
-        if (a[j] < a[minIdx]) { minIdx = j; }
+        st(makeState(n, {[minIdx]:'current',[j]:'compare'}, i, n), `Inner loop: j=${j}`, 3);
+        st(makeState(n, {[minIdx]:'current',[j]:'compare'}, i, n), `A[${j}]=${a[j]} < A[minIdx=${minIdx}]=${a[minIdx]}? ${a[j]<a[minIdx]}`, 4);
+        if (a[j] < a[minIdx]) { minIdx = j; st(makeState(n, {[minIdx]:'current'}, i, n), `minIdx = ${minIdx}`, 5); }
       }
+      st(makeState(n, {[i]:'swap',[minIdx]:'swap'}, i, n), `minIdx(${minIdx}) != i(${i})? ${minIdx!==i}`, 6);
       if (minIdx !== i) {
         [a[i], a[minIdx]] = [a[minIdx], a[i]]; swaps++;
-        const s = makeState(n, {[i]:'swap',[minIdx]:'swap'}, i+1, n);
-        st(s, `Placed min=${a[i]} at position ${i}`);
+        st(makeState(n, {[i]:'swap',[minIdx]:'swap'}, i+1, n), `Swapped → placed min=${a[i]} at position ${i}`, 7);
       }
     }
-    out.push({ arr: [...a], states: Array(a.length).fill('sorted'), comps, swaps, msg: '✓ Array is fully sorted!' });
-
   } else if (name === 'insertion') {
+    // lines: 0=fn, 1=for i, 2=key=A[i], 3=j=i-1, 4=while cond, 5=while cond2, 6=shift, 7=j--, 8=place key
     const n = a.length;
     for (let i = 1; i < n; i++) {
       const key = a[i]; let j = i - 1;
-      st(makeState(n, {[i]:'pivot'}, i, n), `Key = A[${i}] = ${key}, inserting into sorted portion`);
+      st(makeState(n, {[i]:'pivot'}, i, n), `Outer loop: i=${i}`, 1);
+      st(makeState(n, {[i]:'pivot'}, i, n), `key = A[${i}] = ${key}`, 2);
+      st(makeState(n, {[i]:'pivot'}, i, n), `j = ${j}`, 3);
       while (j >= 0 && a[j] > key) {
-        comps++; a[j+1] = a[j]; swaps++;
-        st(makeState(n, {[j]:'compare',[j+1]:'swap'}, i, n), `Shifting A[${j}]=${a[j]} right to make room`);
+        comps++;
+        st(makeState(n, {[j]:'compare',[j+1]:'swap'}, i, n), `while: j=${j}>=0 and A[${j}]=${a[j]} > key=${key}? true`, 4);
+        a[j+1] = a[j]; swaps++;
+        st(makeState(n, {[j]:'compare',[j+1]:'swap'}, i, n), `Shifting A[${j}]=${a[j]} to A[${j+1}]`, 6);
         j--;
+        st(makeState(n, {[j+1]:'swap'}, i, n), `j-- → j=${j}`, 7);
       }
+      st(makeState(n, {[j+1]:'pivot'}, i, n), `while condition false (j=${j})`, 4);
       a[j+1] = key;
-      st(makeState(n, {[j+1]:'pivot'}, i+1, n), `Placed key ${key} at index ${j+1}`);
+      st(makeState(n, {[j+1]:'pivot'}, i+1, n), `A[${j+1}] = key = ${key} placed`, 8);
     }
-    out.push({ arr: [...a], states: Array(a.length).fill('sorted'), comps, swaps, msg: '✓ Array is fully sorted!' });
-
   } else if (name === 'merge') {
-    const ctr = {comps, swaps};
-    mergeSort(a, 0, a.length-1, out, ctr);
-    out.push({ arr: [...a], states: Array(a.length).fill('sorted'), comps: ctr.comps, swaps: ctr.swaps, msg: '✓ Array is fully sorted!' });
-
+    const ctr = {comps:0, swaps:0};
+    mergeSortS(a, 0, a.length-1, out, ctr);
+    out.push({ arr: [...a], states: Array(a.length).fill('sorted'), comps: ctr.comps, swaps: ctr.swaps, msg: '✓ Array is fully sorted!', line: 12 });
+    return out;
   } else if (name === 'quick') {
-    const ctr = {comps, swaps};
-    quickSort(a, 0, a.length-1, out, ctr);
-    out.push({ arr: [...a], states: Array(a.length).fill('sorted'), comps: ctr.comps, swaps: ctr.swaps, msg: '✓ Array is fully sorted!' });
+    const ctr = {comps:0, swaps:0};
+    quickSortS(a, 0, a.length-1, out, ctr);
+    out.push({ arr: [...a], states: Array(a.length).fill('sorted'), comps: ctr.comps, swaps: ctr.swaps, msg: '✓ Array is fully sorted!', line: 12 });
+    return out;
+  } else if (name === 'counting') {
+    // lines: 0=fn, 1=init count, 2=for i count, 3=count[A[i]]++, 4=comment, 5=for prefix, 6=count[i]+=, 7=comment, 8=for place, 9=out[..]=, 10=count--
+    const n = a.length;
+    const max = Math.max(...a);
+    const count = new Array(max + 1).fill(0);
+    out.push({arr:[...a],states:Array(n).fill(''),comps,swaps,msg:`Initialize count[0..${max}] = 0`, line:1});
+    for (let i = 0; i < n; i++) {
+      count[a[i]]++;
+      const s = Array(n).fill('');
+      s[i] = 'digit';
+      out.push({arr:[...a],states:s,comps,swaps,msg:`count[${a[i]}]++ = ${count[a[i]]}`, line:3});
+    }
+    out.push({arr:[...a],states:Array(n).fill(''),comps,swaps,msg:`Count pass done. Now computing prefix sums…`, line:5});
+    for (let i = 1; i <= max; i++) count[i] += count[i-1];
+    out.push({arr:[...a],states:Array(n).fill('compare'),comps,swaps,msg:`Prefix sums built — determining final positions`, line:6});
+    const output = new Array(n);
+    for (let i = n-1; i >= 0; i--) {
+      output[count[a[i]] - 1] = a[i];
+      count[a[i]]--;
+    }
+    for (let i = 0; i < n; i++) a[i] = output[i];
+    out.push({arr:[...a],states:Array(n).fill('sorted'),comps,swaps,msg:'Elements placed in output → array sorted!', line:9});
+  } else if (name === 'radix') {
+    // lines: 0=fn, 1=max, 2=comment, 3=for exp, 4=CountingByDigit, 5=fn2, 6=digit, 7=comment, 8=prefix, 9=place
+    const n = a.length;
+    let max = Math.max(...a);
+    out.push({arr:[...a],states:Array(n).fill(''),comps,swaps,msg:`max = ${max}`, line:1});
+    for (let exp = 1; Math.floor(max / exp) > 0; exp *= 10) {
+      const output = new Array(n).fill(0);
+      const cnt = new Array(10).fill(0);
+      const digitName = exp === 1 ? 'ones' : exp === 10 ? 'tens' : exp === 100 ? 'hundreds' : `10^${Math.log10(exp)}`;
+      out.push({arr:[...a],states:Array(n).fill(''),comps,swaps,msg:`Processing ${digitName} digit (exp=${exp})`, line:3});
+      for (let i = 0; i < n; i++) { const d = Math.floor(a[i] / exp) % 10; cnt[d]++; }
+      out.push({arr:[...a],states:Array(n).fill('compare'),comps,swaps,msg:`digit = (A[i] / ${exp}) % 10 — counting frequencies`, line:6});
+      for (let i = 1; i < 10; i++) cnt[i] += cnt[i-1];
+      out.push({arr:[...a],states:Array(n).fill('compare'),comps,swaps,msg:`Prefix sums built for ${digitName} digit`, line:8});
+      for (let i = n-1; i >= 0; i--) {
+        const d = Math.floor(a[i] / exp) % 10;
+        output[cnt[d]-1] = a[i]; cnt[d]--;
+      }
+      for (let i = 0; i < n; i++) a[i] = output[i];
+      const s = Array(n).fill('digit');
+      out.push({arr:[...a],states:s,comps,swaps,msg:`${digitName} pass complete`, line:9});
+    }
+    out.push({ arr: [...a], states: Array(a.length).fill('sorted'), comps, swaps, msg: '✓ All digit passes done — array sorted!', line:9 });
+    return out;
   }
-
+  out.push({ arr: [...a], states: Array(a.length).fill('sorted'), comps, swaps, msg: '✓ Array is fully sorted!', line: undefined });
   return out;
 }
 
-function makeState(n, hl, sortedFrom, total) {
-  return Array.from({length:n}, (_,i) => {
-    if (hl[i]) return hl[i];
-    if (i >= sortedFrom) return 'sorted';
-    return '';
-  });
-}
-
-function mergeSort(a, l, r, out, ctr) {
+function mergeSortS(a, l, r, out, ctr) {
   if (l >= r) return;
   const m = Math.floor((l+r)/2);
-  mergeSort(a, l, m, out, ctr);
-  mergeSort(a, m+1, r, out, ctr);
-  mergeParts(a, l, m, r, out, ctr);
-}
-
-function mergeParts(a, l, m, r, out, ctr) {
+  const sRecurse = Array(a.length).fill(''); for(let x=l;x<=r;x++) sRecurse[x]='compare';
+  out.push({arr:[...a],states:sRecurse,comps:ctr.comps,swaps:ctr.swaps,msg:`Split [${l}..${r}] at mid=${m}`, line:2});
+  out.push({arr:[...a],states:sRecurse,comps:ctr.comps,swaps:ctr.swaps,msg:`Recurse: MergeSort(A, ${l}, ${m})`, line:3});
+  mergeSortS(a, l, m, out, ctr);
+  out.push({arr:[...a],states:sRecurse,comps:ctr.comps,swaps:ctr.swaps,msg:`Recurse: MergeSort(A, ${m+1}, ${r})`, line:4});
+  mergeSortS(a, m+1, r, out, ctr);
+  out.push({arr:[...a],states:sRecurse,comps:ctr.comps,swaps:ctr.swaps,msg:`Merge(A, ${l}, ${m}, ${r})`, line:5});
   const L = a.slice(l, m+1), R = a.slice(m+1, r+1);
   let i=0, j=0, k=l;
+  out.push({arr:[...a],states:sRecurse,comps:ctr.comps,swaps:ctr.swaps,msg:`Copied to L[${L}] and R[${R}]`, line:7});
   while (i<L.length && j<R.length) {
     ctr.comps++;
     const s = Array(a.length).fill('');
     for(let x=l;x<=r;x++) s[x]='compare';
-    out.push({arr:[...a],states:s,comps:ctr.comps,swaps:ctr.swaps,msg:`Merging [${l}..${m}][${m+1}..${r}]: ${L[i]} vs ${R[j]}`});
-    if (L[i] <= R[j]) { a[k++] = L[i++]; }
-    else { a[k++] = R[j++]; ctr.swaps++; }
+    out.push({arr:[...a],states:s,comps:ctr.comps,swaps:ctr.swaps,msg:`Compare L[${i}]=${L[i]} vs R[${j}]=${R[j]}`, line:9});
+    if (L[i] <= R[j]) {
+      a[k++] = L[i++];
+      out.push({arr:[...a],states:s,comps:ctr.comps,swaps:ctr.swaps,msg:`L[i] ≤ R[j] → A[k++]=L[i++]`, line:10});
+    } else {
+      a[k++] = R[j++]; ctr.swaps++;
+      out.push({arr:[...a],states:s,comps:ctr.comps,swaps:ctr.swaps,msg:`L[i] > R[j] → A[k++]=R[j++]`, line:11});
+    }
   }
   while (i<L.length) a[k++] = L[i++];
   while (j<R.length) a[k++] = R[j++];
   const s2 = Array(a.length).fill('');
   for(let x=l;x<=r;x++) s2[x]='sorted';
-  out.push({arr:[...a],states:s2,comps:ctr.comps,swaps:ctr.swaps,msg:`Merged subarray [${l}..${r}] successfully`});
+  out.push({arr:[...a],states:s2,comps:ctr.comps,swaps:ctr.swaps,msg:`Copy remaining + Merged [${l}..${r}]`, line:12});
 }
-
-function quickSort(a, lo, hi, out, ctr) {
+function quickSortS(a, lo, hi, out, ctr) {
   if (lo >= hi) return;
-  const p = partition(a, lo, hi, out, ctr);
-  quickSort(a, lo, p-1, out, ctr);
-  quickSort(a, p+1, hi, out, ctr);
+  out.push({arr:[...a],states:Array(a.length).fill(''),comps:ctr.comps,swaps:ctr.swaps,msg:`QuickSort(A, ${lo}, ${hi})`, line:1});
+  const p = partitionS(a, lo, hi, out, ctr);
+  out.push({arr:[...a],states:Array(a.length).fill(''),comps:ctr.comps,swaps:ctr.swaps,msg:`Pivot placed at ${p} → recurse left [${lo}..${p-1}]`, line:3});
+  quickSortS(a, lo, p-1, out, ctr);
+  out.push({arr:[...a],states:Array(a.length).fill(''),comps:ctr.comps,swaps:ctr.swaps,msg:`Recurse right [${p+1}..${hi}]`, line:4});
+  quickSortS(a, p+1, hi, out, ctr);
 }
-
-function partition(a, lo, hi, out, ctr) {
+function partitionS(a, lo, hi, out, ctr) {
   const pv = a[hi]; let i = lo-1;
+  out.push({arr:[...a],states:(()=>{const s=Array(a.length).fill('');s[hi]='pivot';return s;})(),comps:ctr.comps,swaps:ctr.swaps,msg:`pivot = A[${hi}] = ${pv}`, line:6});
+  out.push({arr:[...a],states:(()=>{const s=Array(a.length).fill('');s[hi]='pivot';return s;})(),comps:ctr.comps,swaps:ctr.swaps,msg:`i = lo-1 = ${i}`, line:7});
   for (let j=lo; j<hi; j++) {
     ctr.comps++;
     const s = Array(a.length).fill(''); s[hi]='pivot'; s[j]='compare';
-    out.push({arr:[...a],states:s,comps:ctr.comps,swaps:ctr.swaps,msg:`Pivot=${pv}, comparing A[${j}]=${a[j]}`});
+    out.push({arr:[...a],states:s,comps:ctr.comps,swaps:ctr.swaps,msg:`for j=${j}: A[${j}]=${a[j]}`, line:8});
+    out.push({arr:[...a],states:s,comps:ctr.comps,swaps:ctr.swaps,msg:`A[${j}]=${a[j]} ≤ pivot=${pv}? ${a[j]<=pv}`, line:9});
     if (a[j] <= pv) {
       i++;
       [a[i],a[j]]=[a[j],a[i]]; ctr.swaps++;
       const s2=Array(a.length).fill(''); s2[hi]='pivot'; s2[i]='swap'; s2[j]='swap';
-      out.push({arr:[...a],states:s2,comps:ctr.comps,swaps:ctr.swaps,msg:`A[${j}]=${a[j]} ≤ pivot, swapping with A[${i}]`});
+      out.push({arr:[...a],states:s2,comps:ctr.comps,swaps:ctr.swaps,msg:`i++=${i}; swap A[${i}] ↔ A[${j}]`, line:10});
     }
   }
   [a[i+1],a[hi]]=[a[hi],a[i+1]]; ctr.swaps++;
   const s3=Array(a.length).fill(''); s3[i+1]='pivot';
-  out.push({arr:[...a],states:s3,comps:ctr.comps,swaps:ctr.swaps,msg:`Pivot ${pv} placed at final position ${i+1}`});
+  out.push({arr:[...a],states:s3,comps:ctr.comps,swaps:ctr.swaps,msg:`swap(A[${i+1}], pivot=${pv}) → pivot in final position`, line:11});
+  out.push({arr:[...a],states:s3,comps:ctr.comps,swaps:ctr.swaps,msg:`return ${i+1}`, line:12});
   return i+1;
+}
+
+// ====== PURE SORT FUNCTIONS (no step tracking, for analysis) ======
+function runSort(name, inputArr) {
+  const a = [...inputArr];
+  const n = a.length;
+  let comps = 0, swaps = 0;
+  const t0 = performance.now();
+  if (name === 'bubble') {
+    for (let i = 0; i < n-1; i++) {
+      let sw = false;
+      for (let j = 0; j < n-i-1; j++) {
+        comps++;
+        if (a[j] > a[j+1]) { [a[j],a[j+1]]=[a[j+1],a[j]]; swaps++; sw=true; }
+      }
+      if (!sw) break;
+    }
+  } else if (name === 'selection') {
+    for (let i = 0; i < n-1; i++) {
+      let m = i;
+      for (let j = i+1; j < n; j++) { comps++; if (a[j] < a[m]) m = j; }
+      if (m !== i) { [a[i],a[m]]=[a[m],a[i]]; swaps++; }
+    }
+  } else if (name === 'insertion') {
+    for (let i = 1; i < n; i++) {
+      const k = a[i]; let j = i-1;
+      while (j >= 0 && a[j] > k) { comps++; a[j+1]=a[j]; swaps++; j--; }
+      a[j+1] = k;
+    }
+  } else if (name === 'merge') {
+    function ms(arr, l, r) {
+      if (l >= r) return;
+      const m = (l+r)>>1;
+      ms(arr, l, m); ms(arr, m+1, r);
+      const L=arr.slice(l,m+1), R=arr.slice(m+1,r+1);
+      let i=0,j=0,k=l;
+      while(i<L.length&&j<R.length){comps++;if(L[i]<=R[j])arr[k++]=L[i++];else{arr[k++]=R[j++];swaps++;}}
+      while(i<L.length)arr[k++]=L[i++];while(j<R.length)arr[k++]=R[j++];
+    }
+    ms(a, 0, n-1);
+  } else if (name === 'quick') {
+    function qs(arr, lo, hi) {
+      if (lo >= hi) return;
+      const pv = arr[hi]; let i = lo-1;
+      for (let j=lo;j<hi;j++){comps++;if(arr[j]<=pv){i++;[arr[i],arr[j]]=[arr[j],arr[i]];swaps++;}}
+      [arr[i+1],arr[hi]]=[arr[hi],arr[i+1]]; swaps++;
+      qs(arr,lo,i); qs(arr,i+2,hi);
+    }
+    qs(a, 0, n-1);
+  } else if (name === 'counting') {
+    const max = Math.max(...a);
+    const cnt = new Array(max+1).fill(0);
+    for (let i=0;i<n;i++) cnt[a[i]]++;
+    for (let i=1;i<=max;i++) cnt[i]+=cnt[i-1];
+    const out = new Array(n);
+    for (let i=n-1;i>=0;i--){out[cnt[a[i]]-1]=a[i];cnt[a[i]]--;}
+    for (let i=0;i<n;i++) a[i]=out[i];
+    comps = n; swaps = n;
+  } else if (name === 'radix') {
+    const max = Math.max(...a);
+    for (let exp=1;Math.floor(max/exp)>0;exp*=10){
+      const out=new Array(n).fill(0);
+      const cnt=new Array(10).fill(0);
+      for(let i=0;i<n;i++){cnt[Math.floor(a[i]/exp)%10]++;}
+      for(let i=1;i<10;i++) cnt[i]+=cnt[i-1];
+      for(let i=n-1;i>=0;i--){const d=Math.floor(a[i]/exp)%10;out[cnt[d]-1]=a[i];cnt[d]--;}
+      for(let i=0;i<n;i++) a[i]=out[i];
+      comps += n; swaps += n;
+    }
+  }
+  const elapsed = performance.now() - t0;
+  return { comps, swaps, timeMs: elapsed };
+}
+
+function makeTestArray(size, dist) {
+  if (dist === 'nearly') {
+    const a = Array.from({length:size},(_,i)=>i+1);
+    for (let i=0;i<Math.max(1,Math.floor(size*0.05));i++){
+      const x=Math.floor(Math.random()*size), y=Math.floor(Math.random()*size);
+      [a[x],a[y]]=[a[y],a[x]];
+    }
+    return a;
+  } else if (dist === 'reverse') {
+    return Array.from({length:size},(_,i)=>size-i);
+  } else if (dist === 'sorted') {
+    return Array.from({length:size},(_,i)=>i+1);
+  } else if (dist === 'fewunique') {
+    const vals = [1,2,3,4,5];
+    return Array.from({length:size},()=>vals[Math.floor(Math.random()*vals.length)]);
+  } else if (dist === 'smallrange') {
+    return Array.from({length:size},()=>Math.floor(Math.random()*20)+1);
+  }
+  return Array.from({length:size},()=>Math.floor(Math.random()*size)+1);
+}
+
+// ====== ANALYZER ======
+function runAnalysis() {
+  const size = parseInt(document.getElementById('analyzer-size').value) || 500;
+  const dist = document.getElementById('analyzer-dist').value;
+  const container = document.getElementById('analyzer-content');
+  container.innerHTML = `<div style="font-family:var(--mono);font-size:0.7rem;color:var(--muted);padding:20px;">Running analysis on ${size.toLocaleString()} elements…</div>`;
+
+  setTimeout(() => {
+    const testArr = makeTestArray(size, dist);
+    const algoList = ['bubble','selection','insertion','merge','quick','counting','radix'];
+    const results = {};
+    // Skip O(n²) for very large arrays to avoid browser freeze
+    const SKIP_N2 = 50000;
+    algoList.forEach(name => {
+      if (size > SKIP_N2 && ['bubble','selection','insertion'].includes(name)) {
+        results[name] = { comps: null, swaps: null, timeMs: null, skipped: true };
+      } else {
+        results[name] = runSort(name, [...testArr]);
+      }
+    });
+
+    // Compute array stats
+    const sorted = [...testArr].sort((a,b)=>a-b);
+    const min = sorted[0], max = sorted[sorted.length-1];
+    const mean = testArr.reduce((s,v)=>s+v,0)/size;
+    const range = max - min;
+    const isInts = testArr.every(v => Number.isInteger(v));
+
+    // Rank by time (skip skipped)
+    const ranked = algoList.filter(n=>!results[n].skipped)
+      .map(n=>({name:n, timeMs:results[n].timeMs, comps:results[n].comps}))
+      .sort((a,b)=>a.timeMs-b.timeMs);
+    const maxTime = Math.max(...ranked.map(r=>r.timeMs), 0.001);
+
+    const distLabel = {random:'Random',nearly:'Nearly Sorted',reverse:'Reverse Sorted',fewunique:'Few Unique Values',smallrange:'Small Value Range'}[dist];
+    const rankColors = ['#b8860b','#888','#a0522d','#5a7e5c','#7060a8','#3a8a8a','#4a6a9a'];
+
+    container.innerHTML = `
+      <div class="analyzer-header">
+        <div>
+          <div style="font-size:1rem;font-weight:700;font-style:italic;">Analysis Results</div>
+          <div style="font-family:var(--mono);font-size:0.63rem;color:var(--muted);margin-top:3px;">${size.toLocaleString()} elements · ${distLabel} distribution</div>
+        </div>
+        <div class="analyzer-badge">📊 ANALYSIS MODE — No Visualization</div>
+      </div>
+      <div class="analysis-grid">
+        <div class="analysis-card"><div class="label">Array Size</div><div class="value">${size.toLocaleString()}</div></div>
+        <div class="analysis-card"><div class="label">Distribution</div><div class="value" style="font-size:0.78rem;">${distLabel}</div></div>
+        <div class="analysis-card"><div class="label">Value Range</div><div class="value">${min}–${max}</div><div class="sub">Range: ${range}</div></div>
+        <div class="analysis-card"><div class="label">Mean Value</div><div class="value">${mean.toFixed(1)}</div></div>
+        <div class="analysis-card"><div class="label">Data Type</div><div class="value" style="font-size:0.78rem;">${isInts?'Integers':'Mixed'}</div></div>
+      </div>
+      <div style="font-family:var(--mono);font-size:0.65rem;color:var(--text-soft);font-weight:500;margin-top:4px;">⏱ Performance Ranking (actual measured time)</div>
+      <div class="ranking-list">
+        ${ranked.map((r,i)=>`
+          <div class="ranking-item">
+            <div class="rank-num ${i===0?'gold':i===1?'silver':i===2?'bronze':''}">${i===0?'🥇':i===1?'🥈':i===2?'🥉':`#${i+1}`}</div>
+            <div class="rank-bar-wrap">
+              <div style="display:flex;justify-content:space-between;align-items:center;">
+                <div class="rank-name" style="color:${ALGOS[r.name].color}">${ALGOS[r.name].name}</div>
+                <div class="rank-score">${r.timeMs.toFixed(3)}ms · ${r.comps.toLocaleString()} cmps</div>
+              </div>
+              <div class="rank-bar-bg"><div class="rank-bar-fill" style="width:${Math.round((r.timeMs/maxTime)*100)}%;background:${ALGOS[r.name].color}"></div></div>
+            </div>
+          </div>`).join('')}
+        ${algoList.filter(n=>results[n].skipped).map(n=>`
+          <div class="ranking-item" style="opacity:0.55;">
+            <div class="rank-num">—</div>
+            <div class="rank-bar-wrap">
+              <div class="rank-name" style="color:${ALGOS[n].color}">${ALGOS[n].name}</div>
+              <div class="rank-verdict" style="color:var(--red)">⚠ Skipped — O(n²) on ${size.toLocaleString()} elements would take too long</div>
+            </div>
+          </div>`).join('')}
+      </div>
+      ${size <= 1000 ? `
+      <div style="font-family:var(--mono);font-size:0.65rem;color:var(--text-soft);font-weight:500;margin-top:4px;">📋 Detailed Statistics</div>
+      <div class="compare-table-wrapper">
+        <table class="compare-table">
+          <thead><tr><th>Algorithm</th><th>Time (ms)</th><th>Comparisons</th><th>Swaps / Writes</th><th>Cmps/n</th></tr></thead>
+          <tbody>
+            ${algoList.map(n=>{
+              const r = results[n];
+              if (r.skipped) return `<tr><td style="color:${ALGOS[n].color};font-style:italic;">${ALGOS[n].name}</td><td colspan="4" style="color:var(--red);">Skipped (too slow for n=${size})</td></tr>`;
+              return `<tr>
+                <td style="color:${ALGOS[n].color};font-weight:600;font-style:italic;">${ALGOS[n].name}</td>
+                <td class="${r.timeMs===Math.min(...ranked.map(x=>x.timeMs))?'best-t':'ok-t'}">${r.timeMs.toFixed(3)}</td>
+                <td>${r.comps.toLocaleString()}</td>
+                <td>${r.swaps.toLocaleString()}</td>
+                <td class="${r.comps/size < size ? 'good-t' : 'bad-t'}">${(r.comps/size).toFixed(1)}n</td>
+              </tr>`;}).join('')}
+          </tbody>
+        </table>
+      </div>` : ''}
+      <div class="analysis-note">
+        💡 <strong>Key Insight:</strong> ${getAnalysisInsight(dist, size, ranked, results)}
+      </div>
+    `;
+  }, 50);
+}
+
+function getAnalysisInsight(dist, size, ranked, results) {
+  const winner = ranked[0];
+  if (!winner) return 'No comparable results for this configuration.';
+  const wName = ALGOS[winner.name].name;
+  if (dist === 'nearly') return `Nearly-sorted data heavily favors ${wName}. Insertion Sort's O(n) best case shines here — it only shifts elements that are out of place.`;
+  if (dist === 'reverse') return `Reverse-sorted is the worst case for most algorithms. ${wName} handled it best. Note that Bubble Sort on reverse data requires n(n-1)/2 swaps.`;
+  if (dist === 'fewunique') return `Few unique values benefit non-comparison sorts. ${wName} excels since value ranges are small, making counting-based approaches very efficient.`;
+  if (dist === 'smallrange') return `A small value range makes Counting Sort and Radix Sort especially effective — the O(k) term is tiny, reducing to near-O(n) performance.`;
+  if (size > 10000) return `At n=${size.toLocaleString()}, O(n²) algorithms are prohibitively slow. ${wName} wins with O(n log n) or better complexity — the difference is ${Math.round(size*Math.log2(size)).toLocaleString()} vs ${(size*size).toLocaleString()} operations.`;
+  return `For random data at n=${size}, ${wName} performed best. O(n log n) algorithms consistently outperform O(n²) as array size grows.`;
+}
+
+// ====== COMPARATOR ======
+function runComparator() {
+  const size = document.getElementById('cmp-size').value;
+  const dist = document.getElementById('cmp-dist').value;
+  const mem  = document.getElementById('cmp-mem').value;
+  const needStable = document.getElementById('cmp-stable').value === 'yes';
+
+  // Scoring system: 0-100 per algorithm
+  const scores = {
+    bubble:    scoreBubble(size, dist, mem, needStable),
+    selection: scoreSelection(size, dist, mem, needStable),
+    insertion: scoreInsertion(size, dist, mem, needStable),
+    merge:     scoreMerge(size, dist, mem, needStable),
+    quick:     scoreQuick(size, dist, mem, needStable),
+    counting:  scoreCounting(size, dist, mem, needStable),
+    radix:     scoreRadix(size, dist, mem, needStable),
+  };
+
+  const sorted = Object.entries(scores).sort((a,b)=>b[1].total-a[1].total);
+  const winner = sorted[0];
+  const maxScore = winner[1].total;
+
+  const sizeLabel = {tiny:'Tiny (≤10)',small:'Small (11–100)',medium:'Medium (101–1K)',large:'Large (1K–100K)',huge:'Huge (100K+)'}[size];
+  const distLabel = {random:'Random',nearly:'Nearly Sorted',reverse:'Reverse Sorted',sorted:'Already Sorted',fewunique:'Few Unique Values',smallrange:'Small Value Range'}[dist];
+
+  document.getElementById('comparator-results').innerHTML = `
+    <div class="recommendation-box">
+      <div class="recommendation-header">
+        <div class="recommendation-title">Recommendation for: ${sizeLabel} · ${distLabel}${needStable?' · Stable required':''}${mem==='tight'?' · Memory tight':''}</div>
+      </div>
+      <div class="recommendation-body">
+        <div class="rec-winner">
+          <div class="rec-winner-icon">🏆</div>
+          <div>
+            <div class="rec-winner-name" style="color:${ALGOS[winner[0]].color}">${ALGOS[winner[0]].name}</div>
+            <div class="rec-winner-reason">${winner[1].reason}</div>
+          </div>
+        </div>
+        <div style="font-family:var(--mono);font-size:0.6rem;color:var(--muted);margin-bottom:9px;text-transform:uppercase;letter-spacing:1.5px;">All Algorithms — Suitability Score</div>
+        <div class="rec-scores-grid">
+          ${sorted.map(([name, s])=>`
+            <div class="rec-score-item">
+              <div class="rec-score-name" style="color:${ALGOS[name].color}">${ALGOS[name].name}</div>
+              <div class="rec-score-bar-bg"><div class="rec-score-bar-fill" style="width:${s.total}%;background:${ALGOS[name].color}"></div></div>
+              <div class="rec-score-val">Score: ${s.total}/100 — ${s.verdict}</div>
+            </div>`).join('')}
+        </div>
+      </div>
+    </div>
+    <div style="font-family:var(--mono);font-size:0.65rem;color:var(--text-soft);font-weight:500;margin-top:4px;">Best algorithm per criterion</div>
+    <div class="criteria-grid">
+      ${criteriaCards(size, dist, mem, needStable)}
+    </div>
+  `;
+}
+
+function scoreBubble(size, dist, mem, stable) {
+  let s = 30;
+  if (size==='tiny') s+=30; else if (size==='small') s+=10; else if (['medium','large','huge'].includes(size)) s-=20;
+  if (dist==='nearly'||dist==='sorted') s+=20;
+  if (dist==='reverse') s-=25;
+  if (stable) s+=5;
+  s = Math.max(5, Math.min(100, s));
+  return {total:s, reason:'Simple but slow O(n²). Only competitive for tiny/nearly-sorted arrays.',verdict:s>60?'Good fit':s>40?'Acceptable':'Not recommended'};
+}
+function scoreSelection(size, dist, mem, stable) {
+  let s = 25;
+  if (size==='tiny') s+=30; else if (size==='small') s+=10; else s-=15;
+  if (mem==='tight') s+=15;
+  if (stable) s-=15;
+  s = Math.max(5, Math.min(100, s));
+  return {total:s, reason:'Minimizes swaps (n-1 max). Useful when writes/swaps are expensive. Not stable.',verdict:s>60?'Good fit':s>40?'Acceptable':'Not recommended'};
+}
+function scoreInsertion(size, dist, mem, stable) {
+  let s = 40;
+  if (size==='tiny') s+=30; else if (size==='small') s+=20; else if (['large','huge'].includes(size)) s-=20;
+  if (dist==='nearly'||dist==='sorted') s+=35;
+  if (dist==='reverse') s-=20;
+  if (stable) s+=5;
+  s = Math.max(5, Math.min(100, s));
+  return {total:s, reason:'Excellent for nearly-sorted and small data. O(n) best case. Base of TimSort.',verdict:s>60?'Good fit':s>40?'Acceptable':'Not recommended'};
+}
+function scoreMerge(size, dist, mem, stable) {
+  let s = 65;
+  if (['large','huge'].includes(size)) s+=15; else if (size==='tiny') s-=20;
+  if (mem==='tight') s-=20;
+  if (stable) s+=15;
+  if (dist==='fewunique') s-=5;
+  s = Math.max(5, Math.min(100, s));
+  return {total:s, reason:'Guaranteed O(n log n) and stable. Best choice when stability is required. Needs O(n) extra memory.',verdict:s>60?'Recommended':s>40?'Acceptable':'Not recommended'};
+}
+function scoreQuick(size, dist, mem, stable) {
+  let s = 70;
+  if (['medium','large','huge'].includes(size)) s+=10; else if (size==='tiny') s-=20;
+  if (dist==='sorted'||dist==='reverse') s-=20;
+  if (dist==='random') s+=10;
+  if (stable) s-=20;
+  if (mem==='tight') s+=10;
+  s = Math.max(5, Math.min(100, s));
+  return {total:s, reason:'Best average-case performance with excellent cache locality. Risky on sorted/reverse data without randomization.',verdict:s>60?'Recommended':s>40?'Consider':'Not recommended'};
+}
+function scoreCounting(size, dist, mem, stable) {
+  let s = 30;
+  if (dist==='smallrange'||dist==='fewunique') s+=50;
+  if (['large','huge'].includes(size)&&(dist==='smallrange'||dist==='fewunique')) s+=15;
+  if (mem==='tight') s-=20;
+  s = Math.max(5, Math.min(100, s));
+  return {total:s, reason:'O(n+k) — unbeatable when value range k is small. Only works for non-negative integers.',verdict:s>60?'Excellent choice':s>40?'Viable':'Not suitable here'};
+}
+function scoreRadix(size, dist, mem, stable) {
+  let s = 40;
+  if (['large','huge'].includes(size)) s+=25;
+  if (dist==='smallrange'||dist==='fewunique') s+=15;
+  if (dist==='random'&&['large','huge'].includes(size)) s+=10;
+  if (mem==='tight') s-=15;
+  s = Math.max(5, Math.min(100, s));
+  return {total:s, reason:'O(nk) where k = number of digits. Beats comparison sorts for large arrays of fixed-width integers.',verdict:s>60?'Excellent choice':s>40?'Viable':'Not suitable here'};
+}
+
+function criteriaCards(size, dist, mem, needStable) {
+  const cards = [
+    { label:'Best Raw Speed', winner: (['large','huge'].includes(size)&&(dist==='smallrange'||dist==='fewunique')) ? 'Counting Sort' : (['large','huge'].includes(size)) ? 'Quick Sort' : (dist==='nearly'||dist==='sorted') ? 'Insertion Sort' : size==='tiny' ? 'Insertion Sort' : 'Quick Sort', desc:'Fastest average execution time for this input type.' },
+    { label:'Worst Case Safety', winner: 'Merge Sort', desc:'Guaranteed O(n log n) regardless of input distribution.' },
+    { label:'Memory Efficiency', winner: (mem==='tight') ? 'Quick Sort' : 'Insertion Sort', desc:'Minimal auxiliary space — O(1) extra memory.' },
+    { label:'Stability', winner: needStable ? 'Merge Sort' : '—', desc: needStable ? 'Preserves order of equal elements. Critical for multi-key sorts.' : 'Stability not required for this use case.' },
+    { label:'Nearly Sorted Data', winner: 'Insertion Sort', desc:'O(n) on nearly-sorted input — detects and exploits existing order.' },
+    { label:'Huge Datasets', winner: (['smallrange','fewunique'].includes(dist)) ? 'Counting Sort' : 'Radix Sort', desc:'Linear-time algorithms dominate at large scale.' },
+  ];
+  return cards.map(c=>`
+    <div class="criteria-card">
+      <div class="c-label">${c.label}</div>
+      <div class="c-winner" style="color:${c.winner!=='—'?ALGOS[Object.keys(ALGOS).find(k=>ALGOS[k].name===c.winner)||'merge'].color:'var(--muted)'}">${c.winner}</div>
+      <div class="c-desc">${c.desc}</div>
+    </div>`).join('');
 }
 
 // ====== CUSTOM INPUT ======
@@ -1504,31 +2171,24 @@ function openCustomInput() {
   inp.value = arr.join(', ');
   inp.focus();
 }
-
-function closeModal() {
-  document.getElementById('modal').classList.remove('open');
-}
-
+function closeModal() { document.getElementById('modal').classList.remove('open'); }
 function applyCustomInput() {
   const raw = document.getElementById('modal-input').value;
-  const parsed = raw.split(/[,\s]+/).map(s => parseInt(s.trim())).filter(n => !isNaN(n) && n >= 1 && n <= 999);
-  if (parsed.length < 2) { alert('Please enter at least 2 valid numbers (1–999)'); return; }
-  if (parsed.length > 60) { alert('Maximum 60 elements allowed'); return; }
-  customArr = parsed.slice(0, 60);
+  const parsed = raw.split(/[,\s]+/).map(s=>parseInt(s.trim())).filter(n=>!isNaN(n)&&n>=0&&n<=9999);
+  if (parsed.length < 2) { alert('Please enter at least 2 valid non-negative numbers (0–9999)'); return; }
+  if (parsed.length > 5000) { alert('Maximum 5000 elements allowed'); return; }
+  customArr = parsed;
   document.getElementById('arr-size').value = customArr.length;
   closeModal();
   if (currentAlgo) generateData();
 }
-
 document.getElementById('modal').addEventListener('click', e => {
   if (e.target === document.getElementById('modal')) closeModal();
 });
-
 document.getElementById('modal-input').addEventListener('keydown', e => {
   if (e.key === 'Enter') applyCustomInput();
   if (e.key === 'Escape') closeModal();
 });
-
 document.getElementById('arr-size').addEventListener('change', () => {
   customArr = null;
   if (currentAlgo) generateData();
@@ -1537,7 +2197,8 @@ document.getElementById('arr-size').addEventListener('change', () => {
 // ====== COMPARE MODE ======
 function initCompareTab() {
   const grid = document.getElementById('compare-grid');
-  const algoList = ['bubble','selection','insertion','merge','quick'];
+  const algoList = ['bubble','selection','insertion','merge','quick','counting','radix'];
+  grid.style.gridTemplateColumns = 'repeat(3, 1fr)';
   grid.innerHTML = algoList.map(name => {
     const meta = ALGOS[name];
     return `
@@ -1551,21 +2212,16 @@ function initCompareTab() {
         </div>
         <div class="compare-bars" id="cmp-bars-${name}"></div>
         <div class="compare-status" id="cmp-status-${name}">Ready</div>
-      </div>
-    `;
+      </div>`;
   }).join('');
   generateCompareData();
 }
 
 function generateCompareData() {
   stopCompare();
-  const size = 20;
-  const baseArr = Array.from({length:size}, () => Math.floor(Math.random()*88)+12);
-  compareData = {};
-  compareStepsAll = {};
-  compareIdxAll = {};
-
-  const algoList = ['bubble','selection','insertion','merge','quick'];
+  const baseArr = Array.from({length:20},()=>Math.floor(Math.random()*88)+12);
+  compareData = {}; compareStepsAll = {}; compareIdxAll = {};
+  const algoList = ['bubble','selection','insertion','merge','quick','counting','radix'];
   algoList.forEach(name => {
     compareData[name] = [...baseArr];
     compareStepsAll[name] = generateSortingSteps(name, [...baseArr]);
@@ -1575,8 +2231,7 @@ function generateCompareData() {
     if (st) st.textContent = 'Ready — press Run All';
     const cc = document.getElementById(`cmp-c-${name}`);
     const cs = document.getElementById(`cmp-s-${name}`);
-    if (cc) cc.textContent = '0';
-    if (cs) cs.textContent = '0';
+    if (cc) cc.textContent = '0'; if (cs) cs.textContent = '0';
   });
 }
 
@@ -1596,9 +2251,7 @@ function playCompare() {
   compareActive = true;
   document.getElementById('cmp-play-btn').style.display = 'none';
   document.getElementById('cmp-stop-btn').style.display = 'inline-flex';
-
-  const algoList = ['bubble','selection','insertion','merge','quick'];
-  algoList.forEach(name => { runCompareAlgo(name); });
+  ['bubble','selection','insertion','merge','quick','counting','radix'].forEach(name => { runCompareAlgo(name); });
 }
 
 function runCompareAlgo(name) {
@@ -1606,17 +2259,14 @@ function runCompareAlgo(name) {
   const stepsArr = compareStepsAll[name];
   const idx = compareIdxAll[name];
   if (idx >= stepsArr.length) return;
-
   const s = stepsArr[idx];
   renderCompareBars(name, s.arr, s.states || []);
   const cc = document.getElementById(`cmp-c-${name}`);
   const cs = document.getElementById(`cmp-s-${name}`);
   const st = document.getElementById(`cmp-status-${name}`);
-  if (cc) cc.textContent = s.comps;
-  if (cs) cs.textContent = s.swaps;
+  if (cc) cc.textContent = s.comps; if (cs) cs.textContent = s.swaps;
   if (st) st.textContent = s.msg;
   compareIdxAll[name] = idx + 1;
-
   if (idx + 1 < stepsArr.length) {
     compareTimers[name] = setTimeout(() => runCompareAlgo(name), getDelay());
   } else {
@@ -1626,9 +2276,8 @@ function runCompareAlgo(name) {
 }
 
 function checkCompareAllDone() {
-  const algoList = ['bubble','selection','insertion','merge','quick'];
-  const allDone = algoList.every(n => compareIdxAll[n] >= (compareStepsAll[n]||[]).length);
-  if (allDone) {
+  const done = ['bubble','selection','insertion','merge','quick','counting','radix'].every(n => compareIdxAll[n] >= (compareStepsAll[n]||[]).length);
+  if (done) {
     compareActive = false;
     document.getElementById('cmp-play-btn').style.display = 'inline-flex';
     document.getElementById('cmp-stop-btn').style.display = 'none';
@@ -1639,14 +2288,21 @@ function stopCompare() {
   compareActive = false;
   Object.values(compareTimers).forEach(t => clearTimeout(t));
   compareTimers = {};
-  document.getElementById('cmp-play-btn').style.display = 'inline-flex';
-  document.getElementById('cmp-stop-btn').style.display = 'none';
+  const pb = document.getElementById('cmp-play-btn');
+  const sb = document.getElementById('cmp-stop-btn');
+  if (pb) pb.style.display = 'inline-flex';
+  if (sb) sb.style.display = 'none';
 }
 
 // ====== INIT ======
 document.getElementById('btn-play').disabled = true;
 document.getElementById('btn-step').disabled = true;
 document.getElementById('btn-reset').disabled = true;
+// Also update tab display (complexity tab needs flex)
+document.getElementById('tab-complexity').style.display = 'none';
+document.getElementById('tab-analyzer').style.display = 'none';
+document.getElementById('tab-comparator').style.display = 'none';
+document.getElementById('tab-compare').style.display = 'none';
 </script>
 </body>
-  </html>
+              </html>
